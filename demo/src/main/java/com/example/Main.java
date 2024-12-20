@@ -1,5 +1,6 @@
 package com.example;
 
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -7,15 +8,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import com.example.db;
-import com.example.UserDao;
-import com.example.eventDao;
-import com.example.User;
-import com.example.event;
-import com.example.salle;
-import com.example.terrain;
-import com.example.reservation;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import java.util.List;
 
@@ -32,7 +32,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        conn = db.getInstance();
+        /*chaque class DAO utilise un singleton unique */
+        conn = db.getInstance();// obtienir l instance unique de la classe db 
         userDao = new UserImpl(conn);
         eventDao = new eventImpl(conn);
         salleDao = new salleDaoImpl(conn);
@@ -413,15 +414,15 @@ reservationGrid.add(ReservationResultArea, 0, 7, 2, 1);
         TitledPane eventPane = new TitledPane("Event", eventGrid);
         TitledPane sallePane = new TitledPane("Salle", salleGrid);
         TitledPane terrainPane = new TitledPane("Terrain", terrainGrid);
-        TitledPane reservationPane = new TitledPane("Reservation" , reservationGrid);
+        TitledPane reservationPane = new TitledPane("Resssservation" , reservationGrid);
         
         Accordion accordion = new Accordion(userPane, eventPane, sallePane, terrainPane, reservationPane);
         
-        Scene scene = new Scene(accordion, 800, 900);
+        Scene scene = new Scene(accordion, 600, 500);
         primaryStage.setScene(scene);
         
-                primaryStage.setWidth(800); 
-                primaryStage.setHeight(900);
+                primaryStage.setWidth(600); 
+                primaryStage.setHeight(500);
                 primaryStage.setResizable(false);
                 primaryStage.show();
     }
