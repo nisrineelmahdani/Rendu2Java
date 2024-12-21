@@ -1,0 +1,21 @@
+/* styles.css */
+.grid-pane {
+    -fx-padding: 10;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+.button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 16px;
+}
+
+.label {
+    -fx-font-size: 14px;
+}
+
+.text-area {
+    -fx-font-family: "Monospace";
+}

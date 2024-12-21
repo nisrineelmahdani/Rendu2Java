@@ -4,19 +4,17 @@ package com.example;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
+
 import java.util.List;
 
 import com.example.GenericDAO;
@@ -32,6 +30,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+       
+
         /*chaque class DAO utilise un singleton unique */
         conn = db.getInstance();// obtienir l instance unique de la classe db 
         userDao = new UserImpl(conn);
@@ -42,23 +42,30 @@ public class Main extends Application {
 
         Label idLabel = new Label("ID:");
         TextField idField = new TextField();
-
+        idField.setPromptText("Enter User ID");
         Label nomLabel = new Label("Nom:");
         TextField nomField = new TextField();
-
+      
+        nomField.setPromptText("Enter Name");
+   
         Label prenomLabel = new Label("Prenom:");
         TextField prenomField = new TextField();
-
+        prenomField.setPromptText("Enter Prenom");
         Label emailLabel = new Label("Email:");
         TextField emailField = new TextField();
-
+emailField.setPromptText("Enter Email:");
         Label typeLabel = new Label("Type :");
         ComboBox<String> typeComboBox = new ComboBox<>();
         typeComboBox.getItems().addAll("ETUDIANT", "PROFESSEUR");
 
         Button addUserButton = new Button("Add User");
         Button viewUsersButton = new Button("View All Users");
-
+        addUserButton.disableProperty().bind(
+            idField.textProperty().isEmpty()
+            .or(nomField.textProperty().isEmpty())
+            .or(prenomField.textProperty().isEmpty())
+            .or(emailField.textProperty().isEmpty())
+        );
         TextArea resultArea = new TextArea();
         resultArea.setEditable(false);
 
@@ -91,19 +98,27 @@ public class Main extends Application {
        
         Label eventIdLabel = new Label("Event ID:");
         TextField eventIdField = new TextField();
-
+        eventIdField.setPromptText("Enter Event ID");
         Label eventNameLabel = new Label("Event Name:");
         TextField eventNameField = new TextField();
+        eventNameField.setPromptText("Enter Event Name:");
 
         Label eventDateLabel = new Label("Event Date :");
         TextField eventDateField = new TextField();
+        eventDateField.setPromptText("Enter Event Date : ");
         Label descriptionLabel = new Label("Description :");
         TextField descriptionField = new TextField();
+        descriptionField.setPromptText("Enter Event Description:");
         Label user_idLabel = new Label("user id:");
         TextField user_idField = new TextField();
+        user_idField.setPromptText("Enter User id:");
         Button addEventButton = new Button("Add Event");
         Button viewEventsButton = new Button("View All Events");
-
+        addEventButton.disableProperty().bind(
+            idField.textProperty().isEmpty()
+            .or(eventIdField.textProperty().isEmpty())
+            .or(eventNameField.textProperty().isEmpty()).or(eventDateField.textProperty().isEmpty())
+        );
         TextArea eventResultArea = new TextArea();
         eventResultArea.setEditable(false);
 
@@ -135,51 +150,73 @@ public class Main extends Application {
       
         Label salleIdLabel = new Label("salle ID:");
         TextField salleIdField = new TextField();
-
+      salleIdField.setPromptText("Enter Salle id:");
         Label salleNameLabel = new Label("salle Name:");
         TextField salleNameField = new TextField();
-
+        salleNameField.setPromptText("Enter Salle Name:");
         Label salleCapaciteLabel = new Label("capacite:");
         TextField salleCapaciteField = new TextField();
-
+        salleCapaciteField.setPromptText("Enter  salle Capacity:");
         Button addSalleButton = new Button("Add salle");
         Button viewSalleButton = new Button("View All salles");
+        addSalleButton.disableProperty().bind(
 
+            salleIdField.textProperty().isEmpty()
+            .or(salleNameField.textProperty().isEmpty())
+            .or(salleCapaciteField.textProperty().isEmpty())
+        );
         TextArea salleResultArea = new TextArea();
         salleResultArea.setEditable(false);
 
          Label TerrainIdLabel = new Label("Terrain ID:");
          TextField TerrainIdField = new TextField();
- 
+ TerrainIdField.setPromptText("Enter Terrain id:");
          Label TerrainNameLabel = new Label("Terrain Name:");
          TextField TerrainNameField = new TextField();
- 
+ TerrainNameField.setPromptText("Enter Terrain name:");
          Label TerrainTypeLabel = new Label("type:");
          TextField TerrainTypeField = new TextField();
- 
+ TerrainTypeField.setPromptText("Enter Terrain type:");
          Button addTerrainButton = new Button("Add Terrain");
          Button viewTerrainButton = new Button("View All Terrains");
- 
+         addTerrainButton.disableProperty().bind(
+            TerrainIdField.textProperty().isEmpty()
+            .or(TerrainNameField.textProperty().isEmpty())
+            .or(TerrainTypeField.textProperty().isEmpty())
+        );
          TextArea TerrainResultArea = new TextArea();
          TerrainResultArea.setEditable(false);
 
           // Labels and Fields for full reseravtion
           Label ReservationIdLabel = new Label("Reservation ID:");
           TextField ReservationIdField = new TextField();
-  
+          ReservationIdField.setPromptText("Enter Reservation Id:");
           Label ReservationIdUserLabel = new Label("Reservation ID user:");
           TextField ReservationIdUserField = new TextField();
+          ReservationIdUserField.setPromptText("Enter Reservation's User Id:");
           Label ReservationIdEventLabel = new Label("Reservation ID event:");
           TextField ReservationIdEventField = new TextField();
+          ReservationIdEventField.setPromptText("Enter Reservation's Event Id:");
           Label ReservationIdSalleLabel = new Label("Reservation ID salle:");
           TextField ReservationIdSalleField = new TextField();
+          ReservationIdSalleField.setPromptText("Enter Reservation's salle Id:");
           Label ReservationIdTerrainLabel = new Label("Reservation ID terrain:");
           TextField ReservationIdTerrainField = new TextField();
+          ReservationIdTerrainField.setPromptText("Enter Reservation's Terrain Id:");
           Label ReservationDateLabel = new Label("Reservation Date:");
           TextField ReservationDateField = new TextField();
+          ReservationDateField.setPromptText("Enter Reservation Date:");
           Button addReservationButton = new Button("Add Reservation");
           Button viewReservationButton = new Button("View All Reservations");
-  
+          addReservationButton.disableProperty().bind(
+            ReservationIdField.textProperty().isEmpty()
+            .or(ReservationDateField.textProperty().isEmpty())
+            .or(ReservationIdEventField.textProperty().isEmpty())
+            .or(ReservationIdSalleField.textProperty().isEmpty())
+            .or(ReservationIdTerrainField.textProperty().isEmpty())
+            .or(ReservationIdUserField.textProperty().isEmpty())
+        );
+        addReservationButton.setTooltip(new Tooltip("Click to add a new Reservation"));
           TextArea ReservationResultArea = new TextArea();
           ReservationResultArea.setEditable(false);
  
@@ -251,8 +288,7 @@ reservationGrid.add(viewReservationButton, 1, 6);
 
 reservationGrid.add(ReservationResultArea, 0, 7, 2, 1);
        
-        VBox root = new VBox(20, userGrid, eventGrid, salleGrid, terrainGrid, reservationGrid);
-        root.setPadding(new Insets(5));
+     
 
         addUserButton.setOnAction(event -> {
             try {
@@ -410,19 +446,53 @@ reservationGrid.add(ReservationResultArea, 0, 7, 2, 1);
         
      
         
-        TitledPane userPane = new TitledPane("User", userGrid);
+       /* TitledPane userPane = new TitledPane("User", userGrid);
         TitledPane eventPane = new TitledPane("Event", eventGrid);
         TitledPane sallePane = new TitledPane("Salle", salleGrid);
         TitledPane terrainPane = new TitledPane("Terrain", terrainGrid);
         TitledPane reservationPane = new TitledPane("Resssservation" , reservationGrid);
         
         Accordion accordion = new Accordion(userPane, eventPane, sallePane, terrainPane, reservationPane);
+        */ 
+        TabPane tabPane = new TabPane();
+        Tab userTab = new Tab("Users", userGrid);
+        Tab eventTab = new Tab("Events", eventGrid);
+        Tab salleTab = new Tab("Salles", salleGrid);
+        Tab terrainTab = new Tab("Terrains", terrainGrid);
+        Tab reservationTab = new Tab("Reservations", reservationGrid);
+        tabPane.getTabs().addAll(userTab, eventTab, salleTab, terrainTab, reservationTab);
+      
+        Label userNombre = new Label("Total Users: " + userDao.getAll().size());
+        Label eventNombre = new Label("Upcoming Events: " + eventDao.getAll().size());
+        Label salleNombre = new Label("Total salles: " + salleDao.getAll().size());
+        Label terrainsNombre = new Label("Total Terrains: " + terrainDao.getAll().size());
+        Label reservationNombre = new Label(" Total Reservations : " + reservationDao.getAll().size());
+  
+        VBox dashboard = new VBox( 10,userNombre, eventNombre, salleNombre, terrainsNombre, reservationNombre);
+        dashboard.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-width: 1;"); 
+        dashboard.setPadding(new Insets(10));
+        PieChart chart = new PieChart();
+        chart.getData().add(new PieChart.Data("Events", eventDao.getAll().size()));
+        chart.getData().add(new PieChart.Data("Users", userDao.getAll().size()));
+        chart.getData().add(new PieChart.Data("Salles", salleDao.getAll().size()));
+        chart.getData().add(new PieChart.Data("Terrains", terrainDao.getAll().size()));
+        chart.getData().add(new PieChart.Data("Reservations", reservationDao.getAll().size()));
+        chart.setPadding(new Insets(10));
+      chart.setStyle("-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-width: 1;"); 
+        VBox root = new VBox(10);
+        root.setPadding(new Insets(5));
+         root.getChildren().addAll(tabPane, dashboard, chart);
         
-        Scene scene = new Scene(accordion, 600, 500);
+
+        Scene scene = new Scene(root, 900, 900);
         primaryStage.setScene(scene);
-        
-                primaryStage.setWidth(600); 
-                primaryStage.setHeight(500);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+                primaryStage.setWidth(900); 
+                primaryStage.setHeight(800);
+             
+
+
+                primaryStage.setTitle("Reservation Dashboard");
                 primaryStage.setResizable(false);
                 primaryStage.show();
     }
