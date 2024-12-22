@@ -1,6 +1,5 @@
 com\example\eventDao.class
 com\example\GenericDAO.class
-com\example\Main.class
 com\example\User.class
 com\example\salleDao.class
 com\example\terrainDao.class
@@ -11,6 +10,7 @@ com\example\terrainDaoImpl.class
 com\example\terrain.class
 com\example\salleDaoImpl.class
 com\example\App.class
+com\example\MyController.class
 com\example\reservationDaoImpl.class
 com\example\UserImpl.class
 com\example\UserDao.class

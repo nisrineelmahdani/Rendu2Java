@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.example.AppTest
 -------------------------------------------------------------------------------
-Tests run: 10, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 0.866 s <<< FAILURE! -- in com.example.AppTest
-com.example.AppTest.testAddterrain -- Time elapsed: 0.678 s <<< FAILURE!
+Tests run: 10, Failures: 7, Errors: 0, Skipped: 0, Time elapsed: 0.828 s <<< FAILURE! -- in com.example.AppTest
+com.example.AppTest.testAddterrain -- Time elapsed: 0.686 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: terrain should be found by ID ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -158,7 +158,7 @@ org.opentest4j.AssertionFailedError: There should be 1 users in the list ==> exp
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-com.example.AppTest.testGetAllEvents -- Time elapsed: 0.023 s <<< FAILURE!
+com.example.AppTest.testGetAllEvents -- Time elapsed: 0.016 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: There should be 3 events in the list ==> expected: <3> but was: <4>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -236,7 +236,7 @@ org.opentest4j.AssertionFailedError: There should be 3 events in the list ==> ex
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-com.example.AppTest.testAddreservation -- Time elapsed: 0.018 s <<< FAILURE!
+com.example.AppTest.testAddreservation -- Time elapsed: 0.010 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: reservation should be found by ID ==> expected: not <null>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -314,8 +314,8 @@ org.opentest4j.AssertionFailedError: reservation should be found by ID ==> expec
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-com.example.AppTest.testGetAllreservations -- Time elapsed: 0.010 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: There should be 1 reservations in the list ==> expected: <1> but was: <6>
+com.example.AppTest.testGetAllreservations -- Time elapsed: 0.005 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: There should be 1 reservations in the list ==> expected: <1> but was: <10>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
 	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
@@ -392,8 +392,8 @@ org.opentest4j.AssertionFailedError: There should be 1 reservations in the list 
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-com.example.AppTest.testGetAllterrains -- Time elapsed: 0.005 s <<< FAILURE!
-org.opentest4j.AssertionFailedError: There should be 1 terrains in the list ==> expected: <1> but was: <6>
+com.example.AppTest.testGetAllterrains -- Time elapsed: 0.003 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: There should be 1 terrains in the list ==> expected: <1> but was: <10>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
 	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
@@ -470,7 +470,7 @@ org.opentest4j.AssertionFailedError: There should be 1 terrains in the list ==> 
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-com.example.AppTest.testGetAllsalles -- Time elapsed: 0.008 s <<< FAILURE!
+com.example.AppTest.testGetAllsalles -- Time elapsed: 0.005 s <<< FAILURE!
 org.opentest4j.AssertionFailedError: There should be 1 salles in the list ==> expected: <1> but was: <2>
 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
