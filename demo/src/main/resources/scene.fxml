@@ -3,191 +3,250 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.geometry.Insets?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.geometry.Insets?>
 <VBox fx:controller="com.example.MyController" 
       xmlns:fx="http://javafx.com/fxml" 
-      spacing="10" 
-      fx:id="root">
+      fx:id="root"
+      prefWidth="1920"
+      prefHeight="1080"
+      style="-fx-background-color: #f5f5f5;">
     
-    <padding>
-        <Insets top="5" right="5" bottom="5" left="5"/>
-    </padding>
+    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;">
+        <VBox fx:id="dashboard" spacing="15" minWidth="200">
+            <Label text="Dashboard Summary" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <Label fx:id="userNombre" text="Users: 0" style="-fx-font-size: 14;"/>
+            <Label fx:id="eventNombre" text="Events: 0" style="-fx-font-size: 14;"/>
+            <Label fx:id="salleNombre" text="Salles: 0" style="-fx-font-size: 14;"/>
+            <Label fx:id="terrainsNombre" text="Terrains: 0" style="-fx-font-size: 14;"/>
+            <Label fx:id="reservationNombre" text="Reservations: 0" style="-fx-font-size: 14;"/>
+        </VBox>
+        
+        <PieChart fx:id="statisticsChart" prefHeight="200" prefWidth="400" 
+                  style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);"/>
+    </HBox>
 
-    <TabPane>
+    <TabPane VBox.vgrow="ALWAYS" style="-fx-background-color: white;">
         <Tab text="Users" closable="false">
-            <GridPane vgap="5" hgap="10">
-                <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <BorderPane>
+                <left>
+                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
+                        <Label text="User Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <GridPane vgap="10" hgap="15">
+                            <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="idField" promptText="Enter User ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Nom:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="nomField" promptText="Enter Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Prenom:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="prenomField" promptText="Enter Prenom" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Email:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <TextField fx:id="emailField" promptText="Enter Email" prefWidth="250" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Type:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="typeComboBox" prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        </GridPane>
+                        
+                        <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                            <Button text="Add User" fx:id="addUserButton" onAction="#handleAddUser" 
+                                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-min-width: 120;"/>
+                            <Button text="View All Users" fx:id="viewUsersButton" onAction="#handleViewUsers"
+                                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
+                        </HBox>
+                    </VBox>
+                </left>
                 
-                <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="idField" promptText="Enter User ID" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                
-                <Label text="Nom:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="nomField" promptText="Enter Name" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                
-                <Label text="Prenom:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="prenomField" promptText="Enter Prenom" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                
-                <Label text="Email:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <TextField fx:id="emailField" promptText="Enter Email:" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                
-                <Label text="Type:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="typeComboBox" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                
-                <Button text="Add User" fx:id="addUserButton" onAction="#handleAddUser" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                <Button text="View All Users" fx:id="viewUsersButton" onAction="#handleViewUsers" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-                
-                                 <TableView fx:id="userTable" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2">
-    <columns>
-        <TableColumn fx:id="nameColumn" text="Name" prefWidth="150" />
-        <TableColumn fx:id="PrenomColumn" text="Type" prefWidth="100" />
-           <TableColumn fx:id="emailColumn" text="Type" prefWidth="100" />
-           <TableColumn fx:id="typeColumn" text="Type" prefWidth="100" />
-    
-    </columns>
-</TableView>
-            </GridPane>
+                <center>
+                    <TableView fx:id="userTable" style="-fx-padding: 20;">
+                        <columns>
+                            <TableColumn fx:id="usernameColumn" text="LastName" prefWidth="150"/>
+                            <TableColumn fx:id="userPrenomColumn" text="FirstName" prefWidth="150"/>
+                            <TableColumn fx:id="useremailColumn" text="Email" prefWidth="200"/>
+                            <TableColumn fx:id="usertypeColumn" text="Type" prefWidth="100"/>
+                        </columns>
+                        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    </TableView>
+                </center>
+            </BorderPane>
         </Tab>
-        
-        <Tab text="Events" closable="false">
-            <GridPane vgap="5" hgap="10">
-                <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-                
-                <Label text="Event ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="eventIdField" promptText="Enter Event ID" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                
-                <Label text="Event Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="eventNameField" promptText="Enter Event Name:" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                
-                <Label text="Event Date:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="eventDateField" promptText="Enter Event Date:" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                
-                <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <TextField fx:id="descriptionField" promptText="Enter Event Description:" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                
-                <Label text="User ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <TextField fx:id="user_idField" promptText="Enter User ID:" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                
-                <Button text="Add Event" fx:id="addEventButton" onAction="#handleAddEvent" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                <Button text="View All Events" fx:id="viewEventsButton" onAction="#handleViewEvents" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-                 <TableView fx:id="eventTable" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2">
-    <columns>
-        <TableColumn fx:id="eventnameColumn" text="Name" prefWidth="150" />
-        <TableColumn fx:id="eventDateColumn" text="Type" prefWidth="100" />
-           <TableColumn fx:id="DescriptionColumn" text="Type" prefWidth="100" />
-           <TableColumn fx:id="user_idColumn" text="Type" prefWidth="100" />
-    
-    </columns>
-</TableView>
-               
-            </GridPane>
-        </Tab>
-        
-        <Tab text="Salles" closable="false">
-            <GridPane vgap="5" hgap="10">
-                <padding><Insets top="4" right="4" bottom="4" left="4"/></padding>
-                
-                <Label text="Salle ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="salleIdField" promptText="Enter Salle ID:" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                
-                <Label text="Salle Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="salleNameField" promptText="Enter Salle Name:" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                
-                <Label text="Capacite:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="salleCapaciteField" promptText="Enter Salle Capacity:" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                
-                <Button text="Add Salle" fx:id="addSalleButton" onAction="#handleAddSalle" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <Button text="View All Salles" fx:id="viewSalleButton" onAction="#handleViewSalle" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                
-                                        <TableView fx:id="salleTable" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2">
-                    <columns>
-                        <TableColumn fx:id="nameColumn" text="Name" prefWidth="150" />
-                        <TableColumn fx:id="typeColumn" text="Type" prefWidth="100" />
-                        <TableColumn fx:id="CapaciteColumn" text="Type" prefWidth="100" />
-                    
-                    </columns>
-                </TableView>
-            </GridPane>
-        </Tab>
-        
-        <Tab text="Terrains" closable="false">
-            <GridPane vgap="5" hgap="5">
-                <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
-                
-                <Label text="Terrain ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="TerrainIdField" promptText="Enter Terrain ID:" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                
-                <Label text="Terrain Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="TerrainNameField" promptText="Enter Terrain Name:" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                
-                <Label text="Type:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="TerrainTypeField" promptText="Enter Terrain Type:" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                
-                <Button text="Add Terrain" fx:id="addTerrainButton" onAction="#handleAddTerrain" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <Button text="View All Terrains" fx:id="viewTerrainButton" onAction="#handleViewTerrain" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                
-            <TableView fx:id="terrainTable" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2">
-    <columns>
-        <TableColumn fx:id="nameColumn" text="Name" prefWidth="150" />
-        <TableColumn fx:id="typeColumn" text="Type" prefWidth="100" />
-    
-    </columns>
-</TableView>
 
-            </GridPane>
+        <!-- Similar structure for Events tab -->
+        <Tab text="Events" closable="false">
+            <BorderPane>
+                <left>
+                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
+                        <Label text="Event Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <GridPane vgap="10" hgap="15">
+                            <Label text="Event ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="eventIdField" promptText="Enter Event ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Event Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="eventNameField" promptText="Enter Event Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Event Date:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="eventDateField" promptText="Enter Event Date" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <TextArea fx:id="descriptionField" promptText="Enter Event Description" prefWidth="250" prefRowCount="3" 
+                                    wrapText="true" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                            
+                            <Label text="User ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <TextField fx:id="user_idField" promptText="Enter User ID" prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                        </GridPane>
+                        
+                        <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                            <Button text="Add Event" fx:id="addEventButton" onAction="#handleAddEvent"
+                                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-min-width: 120;"/>
+                            <Button text="View All Events" fx:id="viewEventsButton" onAction="#handleViewEvents"
+                                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
+                        </HBox>
+                    </VBox>
+                </left>
+                
+                <center>
+                    <TableView fx:id="eventTable" style="-fx-padding: 20;">
+                        <columns>
+                            <TableColumn fx:id="eventnameColumn" text="Name" prefWidth="200"/>
+                            <TableColumn fx:id="eventDateColumn" text="Date" prefWidth="150"/>
+                            <TableColumn fx:id="DescriptionColumn" text="Description" prefWidth="300"/>
+                            <TableColumn fx:id="Eventuser_idColumn" text="User ID" prefWidth="100"/>
+                        </columns>
+                        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    </TableView>
+                </center>
+            </BorderPane>
         </Tab>
-        
+
+        <!-- Similar structure for Salles tab -->
+        <Tab text="Salles" closable="false">
+            <BorderPane>
+                <left>
+                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
+                        <Label text="Salle Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <GridPane vgap="10" hgap="15">
+                            <Label text="Salle ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="salleIdField" promptText="Enter Salle ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Salle Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="salleNameField" promptText="Enter Salle Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Capacite:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="salleCapaciteField" promptText="Enter Salle Capacity" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        </GridPane>
+                        
+                        <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                            <Button text="Add Salle" fx:id="addSalleButton" onAction="#handleAddSalle"
+                                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-min-width: 120;"/>
+                            <Button text="View All Salles" fx:id="viewSalleButton" onAction="#handleViewSalle"
+                                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
+                        </HBox>
+                    </VBox>
+                </left>
+                
+                <center>
+                    <TableView fx:id="salleTable" style="-fx-padding: 20;">
+                        <columns>
+                            <TableColumn fx:id="sallenameColumn" text="Name" prefWidth="250"/>
+                            <TableColumn fx:id="salleCapaciteColumn" text="Capacity" prefWidth="150"/>
+                        </columns>
+                        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    </TableView>
+                </center>
+            </BorderPane>
+        </Tab>
+
+        <!-- Similar structure for Terrains tab -->
+        <Tab text="Terrains" closable="false">
+            <BorderPane>
+                <left>
+                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
+                        <Label text="Terrain Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <GridPane vgap="10" hgap="15">
+                            <Label text="Terrain ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="TerrainIdField" promptText="Enter Terrain ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Terrain Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="TerrainNameField" promptText="Enter Terrain Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Type:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="TerrainTypeField" promptText="Enter Terrain Type" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        </GridPane>
+                        
+                        <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                            <Button text="Add Terrain" fx:id="addTerrainButton" onAction="#handleAddTerrain"
+                                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-min-width: 120;"/>
+                            <Button text="View All Terrains" fx:id="viewTerrainButton" onAction="#handleViewTerrain"
+                                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
+                        </HBox>
+                    </VBox>
+                </left>
+                
+                <center>
+                    <TableView fx:id="terrainTable" style="-fx-padding: 20;">
+                        <columns>
+                            <TableColumn fx:id="nameColumn" text="Name" prefWidth="250"/>
+                            <TableColumn fx:id="typeColumn" text="Type" prefWidth="150"/>
+                        </columns>
+                        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    </TableView>
+                </center>
+            </BorderPane>
+        </Tab>
+
+        <!-- Similar structure for Reservations tab -->
         <Tab text="Reservations" closable="false">
-            <GridPane vgap="5" hgap="5">
-                <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+            <BorderPane>
+                <left>
+                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
+                        <Label text="Reservation Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <GridPane vgap="10" hgap="15">
+                            <Label text="Reservation ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="ReservationIdField" promptText="Enter Reservation ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            
+                            <Label text="User ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="ReservationIdUserField" promptText="Enter User ID" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Salle ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="ReservationIdSalleField" promptText="Enter Salle ID" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Event ID:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <TextField fx:id="ReservationIdEventField" promptText="Enter
+
+                            Event ID" prefWidth="250" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Terrain ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <TextField fx:id="ReservationIdTerrainField" promptText="Enter Terrain ID" prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Date:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                            <DatePicker fx:id="ReservationDateField" promptText="Select Date" prefWidth="250" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                        </GridPane>
+                        
+                        <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                            <Button text="Add Reservation" fx:id="addReservationButton" onAction="#handleAddReservation"
+                                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-min-width: 120;"/>
+                            <Button text="View All Reservations" fx:id="viewReservationButton" onAction="#handleViewReservation"
+                                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
+                        </HBox>
+                    </VBox>
+                </left>
                 
-                <Label text="Reservation ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="ReservationIdField" promptText="Enter Reservation ID:" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                
-                <Label text="User ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="ReservationIdUserField" promptText="Enter User ID:" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                
-                <Label text="Salle ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="ReservationIdSalleField" promptText="Enter Salle ID:" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                
-                <Label text="Event ID:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <TextField fx:id="ReservationIdEventField" promptText="Enter Event ID:" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                
-                <Label text="Terrain ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <TextField fx:id="ReservationIdTerrainField" promptText="Enter Terrain ID:" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                
-                <Label text="Date:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                <TextField fx:id="ReservationDateField" promptText="Enter Date:" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-                
-                <Button text="Add Reservation" fx:id="addReservationButton" onAction="#handleAddReservation" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-                <Button text="View All Reservations" fx:id="viewReservationButton" onAction="#handleViewReservation" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-                
-                               <TableView fx:id="reservationTable" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2">
-    <columns>
-        <TableColumn fx:id="user_idColumn" text="Name" prefWidth="150" />
-      <TableColumn fx:id="event_idColumn" text="Name" prefWidth="150" />
-       <TableColumn fx:id="salle_idColumn" text="Name" prefWidth="150" />
-        <TableColumn fx:id="terrain_idColumn" text="Name" prefWidth="150" />
-         <TableColumn fx:id="date_idColumn" text="Name" prefWidth="150" />
-    
-    </columns>
-</TableView>
-            </GridPane>
+                <center>
+                    <TableView fx:id="reservationTable" style="-fx-padding: 20;">
+                        <columns>
+                            <TableColumn fx:id="user_idColumn" text="User ID" prefWidth="120"/>
+                            <TableColumn fx:id="event_idColumn" text="Event ID" prefWidth="120"/>
+                            <TableColumn fx:id="salle_idColumn" text="Salle ID" prefWidth="120"/>
+                            <TableColumn fx:id="terrain_idColumn" text="Terrain ID" prefWidth="120"/>
+                            <TableColumn fx:id="date_idColumn" text="Date" prefWidth="150"/>
+                        </columns>
+                        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    </TableView>
+                </center>
+            </BorderPane>
         </Tab>
     </TabPane>
-    
-    <VBox fx:id="dashboard" spacing="10" style="-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-width: 1;">
-    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-    
-    <!-- Labels to display counts -->
-    <Label fx:id="userNombre" text="Users: 0" />
-    <Label fx:id="eventNombre" text="Events: 0" />
-    <Label fx:id="salleNombre" text="Salles: 0" />
-    <Label fx:id="terrainsNombre" text="Terrains: 0" />
-    <Label fx:id="reservationNombre" text="Reservations: 0" />
-</VBox>
-
-    
-    <PieChart fx:id="statisticsChart" style="-fx-background-color: #f4f4f4; -fx-border-color: #cccccc; -fx-border-width: 1;">
-        <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
-    </PieChart>
 </VBox>

@@ -1,13 +1,15 @@
 package com.example;
 
+import java.time.LocalDate;
+
 public class reservation {
     private int id;
     private int id_user;
     private int id_event;
     private  int id_salle;
     private int id_terrain;
-    private String date_reservation;
-    public reservation(int id, int id_user, int id_event, int id_salle, int id_terrain, String date_reservation) {
+    private LocalDate date_reservation;
+    public reservation(int id, int id_user, int id_event, int id_salle, int id_terrain, LocalDate date_reservation) {
         this.id = id;
         this.id_user = id_user;
         this.id_event = id_event;
@@ -57,11 +59,11 @@ public class reservation {
         this.id_terrain = id_terrain;
     }
 
-    public String getDate_reservation() {
+    public LocalDate getDate_reservation() {
         return date_reservation;
     }
 
-    public void setDate_reservation(String date_reservation) {
+    public void setDate_reservation(LocalDate date_reservation) {
         this.date_reservation = date_reservation;
     }
 

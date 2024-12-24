@@ -1,5 +1,7 @@
 package com.example;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,10 @@ public reservationDaoImpl(db cnn){
         pstmt.setInt(3, reservation.getId_event());
         pstmt.setInt(4, reservation.getId_salle());
         pstmt.setInt(5, reservation.getId_terrain());
-        pstmt.setString(6, reservation.getDate_reservation());
+        LocalDate dateReservation = reservation.getDate_reservation();
+String formattedDate = dateReservation.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+pstmt.setString(6, formattedDate);
+        //pstmt.setString(6, reservation.getDate_reservation());
         pstmt.executeUpdate();
         System.out.println("reservation added successfully!");
 
@@ -36,7 +41,7 @@ public reservationDaoImpl(db cnn){
             pstmt.setInt(1, id);
          ResultSet rs = pstmt.executeQuery();
          while (rs.next()) {
-           reservation = new reservation(rs.getInt("id_reservation"), rs.getInt("id_user"), rs.getInt("id_event"), rs.getInt("id_salle"), rs.getInt("id_terrain"), rs.getString("date_reservation"));
+           reservation = new reservation(rs.getInt("id_reservation"), rs.getInt("id_user"), rs.getInt("id_event"), rs.getInt("id_salle"), rs.getInt("id_terrain"), rs.getObject("date_reservation", LocalDate.class));
 
          }
        
@@ -60,7 +65,7 @@ public reservationDaoImpl(db cnn){
                         rs.getInt("id_event"),
                         rs.getInt("id_salle"),
                         rs.getInt("id_terrain"),
-                        rs.getString("date_reservation")
+                        rs.getObject("date_reservation", LocalDate.class)
                        
                 ));
               
@@ -80,7 +85,9 @@ public reservationDaoImpl(db cnn){
             pstmt.setInt(2, reservation.getId_event());
             pstmt.setInt(3, reservation.getId_salle());
             pstmt.setInt(4, reservation.getId_terrain());
-            pstmt.setString(5, reservation.getDate_reservation());
+            LocalDate dateReservation = reservation.getDate_reservation();
+            String formattedDate = dateReservation.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            pstmt.setString(6, formattedDate);
             pstmt.setInt(6, reservation.getId());
             int rowsUpdated = pstmt.executeUpdate();
 

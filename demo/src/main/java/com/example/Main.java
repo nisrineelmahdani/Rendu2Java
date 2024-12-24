@@ -24,6 +24,9 @@ public class Main extends Application {
             
             // Configure the stage
             primaryStage.setScene(scene);
+            primaryStage.setFullScreen(true);
+            primaryStage.setFullScreenExitHint(""); // Optional: hide the exit hint
+            primaryStage.setResizable(true);
             primaryStage.setWidth(900);
             primaryStage.setHeight(800);
             primaryStage.setTitle("Reservation Dashboard");
