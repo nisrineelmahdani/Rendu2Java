@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -174,7 +175,14 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
 
             User newUser = new User(id, nom, prenom, email, type);
             userDao.add(newUser);
-            resultArea.setText("User added: " + newUser);
+            /*  Show success alert
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText("User successfully added:\n" + newUser);
+        alert.showAndWait();
+            resultArea.setText("User added: " + newUser);*/
+            ToastNotification.showToast(new Stage(), "User Added Successfully!");
 
             // Clear fields
             idField.clear();
@@ -210,8 +218,8 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
 
             event newEvent = new event(eventId, eventName, eventDate, description, userId);
             eventDao.add(newEvent);
-            eventResultArea.setText("Event added: " + newEvent);
-
+            ToastNotification.showToast(new Stage(), "Event Added Successfully!");
+           
             // Clear fields
             eventIdField.clear();
             eventNameField.clear();
@@ -245,8 +253,8 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
 
             salle salle = new salle(id, nomSalle, capacite);
             salleDao.add(salle);
-            salleResultArea.setText("Salle added: " + salle);
-
+           
+            ToastNotification.showToast(new Stage(), "Room Added Successfully!");
             // Clear fields
             salleIdField.clear();
             salleNameField.clear();
@@ -277,8 +285,8 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
 
             terrain terrain = new terrain(id, nomTerrain, type);
             terrainDao.add(terrain);
-            TerrainResultArea.setText("Terrain added: " + terrain);
-
+        
+            ToastNotification.showToast(new Stage(), "Terrain Added Successfully!");
             // Clear fields
             TerrainIdField.clear();
             TerrainNameField.clear();
@@ -319,7 +327,9 @@ LocalDate dateReservation = ReservationDateField.getValue();
 if (dateReservation != null) {
     reservation newReservation = new reservation(id, idUser, idEvent, idSalle, idTerrain, dateReservation);
     reservationDao.add(newReservation);
-    ReservationResultArea.setText("Reservation added: " + newReservation);
+  
+   
+    ToastNotification.showToast(new Stage(), " Full Reservation Added Successfully!");
     System.out.println("Reservation added successfully!");
 } else {
     System.out.println("No date selected. Please choose a date.");

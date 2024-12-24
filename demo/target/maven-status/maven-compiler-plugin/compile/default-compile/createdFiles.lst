@@ -1,3 +1,10 @@
+com\example\salle.class
+com\example\terrain.class
+com\example\salleDaoImpl.class
+com\example\App.class
+com\example\reservationDaoImpl.class
+com\example\UserImpl.class
+com\example\UserDao.class
 com\example\eventDao.class
 com\example\GenericDAO.class
 com\example\User.class
@@ -5,15 +12,8 @@ com\example\salleDao.class
 com\example\terrainDao.class
 com\example\db.class
 com\example\reservationDao.class
-com\example\salle.class
 com\example\terrainDaoImpl.class
-com\example\terrain.class
-com\example\salleDaoImpl.class
-com\example\App.class
 com\example\MyController.class
-com\example\reservationDaoImpl.class
-com\example\UserImpl.class
-com\example\UserDao.class
 com\example\event.class
 com\example\eventImpl.class
 com\example\reservation.class
