@@ -223,6 +223,7 @@
                             
                             <Label text="Date:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
                             <DatePicker fx:id="ReservationDateField" promptText="Select Date" prefWidth="250" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                            
                         </GridPane>
                         
                         <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
@@ -231,9 +232,27 @@
                             <Button text="View All Reservations" fx:id="viewReservationButton" onAction="#handleViewReservation"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
+                        <TextArea fx:id="instructionsTextArea"
+              text="Please select from the available dates (shown in green). Red dates are already reserved for this terrain/salle."
+              editable="false"
+              wrapText="true"
+              style="-fx-pref-width: 400px; 
+                     -fx-pref-height: 120px; 
+                     -fx-background-color: #f8fdf8; 
+                     -fx-border-color: #ccc; 
+                     -fx-border-radius: 8px; 
+                     -fx-font-size: 12px; 
+                     -fx-text-fill: #333; 
+                     -fx-padding: 10px; 
+                     -fx-control-inner-background: #ffffff; 
+                     -fx-border-width: 1px;" />
                     </VBox>
                 </left>
-                
+                 <VBox fx:id="Warning" spacing="15" minWidth="200">
+         
+            
+            
+        </VBox>
                 <center>
                     <TableView fx:id="reservationTable" style="-fx-padding: 20;">
                         <columns>
@@ -247,6 +266,9 @@
                     </TableView>
                 </center>
             </BorderPane>
+            
         </Tab>
+        
     </TabPane>
+  
 </VBox>

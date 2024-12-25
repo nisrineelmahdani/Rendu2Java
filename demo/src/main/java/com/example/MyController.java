@@ -9,7 +9,13 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyController {
@@ -113,6 +119,8 @@ private TableColumn<event, String> salle_idColumn;
 private TableColumn<event, String> terrain_idColumn;
 @FXML
 private TableColumn<event, String> date_idColumn;
+private terrain selectedTerrain;
+private salle selectedSalle;
 
 
 private ObservableList<terrain> terrainList = FXCollections.observableArrayList();
@@ -157,6 +165,108 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
         setupButtonBindings();
         updateDashboard();
         updateChart();
+            // Add listeners for terrain and salle selection
+            ReservationIdTerrainField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null && !newValue.isEmpty()) {
+                    try {
+                        int terrainId = Integer.parseInt(newValue);
+                        selectedTerrain = terrainDao.getById(terrainId);
+                        updateAvailableDates();
+                    } catch (NumberFormatException e) {
+                        selectedTerrain = null;
+                    }
+                }
+            });
+    
+            ReservationIdSalleField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue != null && !newValue.isEmpty()) {
+                    try {
+                        int salleId = Integer.parseInt(newValue);
+                        selectedSalle = salleDao.getById(salleId);
+                        updateAvailableDates();
+                    } catch (NumberFormatException e) {
+                        selectedSalle = null;
+                    }
+                }
+            });
+            ReservationDateField.setDayCellFactory(this::createDayCellFactory);
+    }
+    private DateCell createDayCellFactory(DatePicker datePicker) {
+        return new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+    
+                if (date == null || empty) {
+                    setDisable(true);
+                    setStyle("");
+                    return;
+                }
+    
+                // Default style - green for available dates
+                setStyle("-fx-background-color: #90EE90;"); // Light green
+                setDisable(false);
+    
+                // Only check reservations if terrain or salle is selected
+                if (selectedTerrain != null || selectedSalle != null) {
+                    List<reservation> existingReservations = reservationDao.getAll();
+                    
+                    for (reservation res : existingReservations) {
+                        // Check if date matches and either terrain or salle matches
+                        if (res.getDate_reservation().equals(date)) {
+                            boolean isConflict = false;
+                            
+                            if (selectedTerrain != null && res.getId_terrain() == selectedTerrain.getIdTerrain()) {
+                                isConflict = true;
+                            }
+                            
+                            if (selectedSalle != null && res.getId_salle() == selectedSalle.getId_salle()) {
+                                isConflict = true;
+                            }
+                            
+                            if (isConflict) {
+                                setStyle("-fx-background-color: #FF0000;"); // Red for reserved dates
+                                setDisable(true);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    }
+    
+    private boolean isDateAvailable(LocalDate date) {
+        if (selectedTerrain == null && selectedSalle == null) {
+            return true; // If nothing is selected, all dates are available
+        }
+
+        List<reservation> existingReservations = reservationDao.getAll();
+        
+        for (reservation res : existingReservations) {
+            // Skip if the date doesn't match
+            if (!res.getDate_reservation().equals(date)) {
+                continue;
+            }
+
+            // Check terrain conflict
+            if (selectedTerrain != null && res.getId_terrain() == selectedTerrain.getIdTerrain()) {
+                return false;
+            }
+
+            // Check salle conflict
+            if (selectedSalle != null && res.getId_salle() == selectedSalle.getId_salle()) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    private void updateAvailableDates() {
+        // Force the DatePicker to refresh its display
+        LocalDate currentDate = ReservationDateField.getValue();
+        ReservationDateField.setValue(null);
+        ReservationDateField.setValue(currentDate);
     }
     
     @FXML
@@ -321,38 +431,39 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
             int idEvent = Integer.parseInt(ReservationIdEventField.getText());
             int idSalle = Integer.parseInt(ReservationIdSalleField.getText());
             int idTerrain = Integer.parseInt(ReservationIdTerrainField.getText());
-            // Get the selected date
-LocalDate dateReservation = ReservationDateField.getValue();
+            LocalDate dateReservation = ReservationDateField.getValue();
 
-if (dateReservation != null) {
-    reservation newReservation = new reservation(id, idUser, idEvent, idSalle, idTerrain, dateReservation);
-    reservationDao.add(newReservation);
-  
-   
-    ToastNotification.showToast(new Stage(), " Full Reservation Added Successfully!");
-    System.out.println("Reservation added successfully!");
-} else {
-    System.out.println("No date selected. Please choose a date.");
-}
+            if (dateReservation == null) {
+                ReservationResultArea.setText("Please select a valid date");
+                return;
+            }
 
-        //   LocalDate dateReservation = ReservationDateField.getValue();
+            if (!isDateAvailable(dateReservation)) {
+                ReservationResultArea.setText("Selected date is not available for this terrain/salle");
+                return;
+            }
 
-
-           // reservation newReservation = new reservation(id, idUser, idEvent, idSalle, idTerrain, dateReservation);
-            //reservationDao.add(newReservation);
+            reservation newReservation = new reservation(id, idUser, idEvent, idSalle, idTerrain, dateReservation);
+            reservationDao.add(newReservation);
             
-
+            ToastNotification.showToast(new Stage(), "Full Reservation Added Successfully!");
+            
             // Clear fields
             ReservationIdField.clear();
             ReservationIdEventField.clear();
             ReservationIdSalleField.clear();
             ReservationIdTerrainField.clear();
             ReservationIdUserField.clear();
-           // ReservationDateField.clear();
+            ReservationDateField.setValue(null);
+            
+            // Update the calendar after adding a new reservation
+            updateAvailableDates();
+            
         } catch (Exception e) {
             ReservationResultArea.setText("Error: " + e.getMessage());
         }
     }
+
 
     // View All Reservations
     @FXML
@@ -432,5 +543,6 @@ if (dateReservation != null) {
             statisticsChart.getData().clear();
             statisticsChart.getData().addAll(slice1, slice2, slice3, slice4);
         }
+  
         
     }
