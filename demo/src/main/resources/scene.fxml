@@ -74,7 +74,6 @@
             </BorderPane>
         </Tab>
 
-        <!-- Similar structure for Events tab -->
         <Tab text="Events" closable="false">
             <BorderPane>
                 <left>
@@ -121,7 +120,6 @@
             </BorderPane>
         </Tab>
 
-        <!-- Similar structure for Salles tab -->
         <Tab text="Salles" closable="false">
             <BorderPane>
                 <left>
@@ -159,7 +157,6 @@
             </BorderPane>
         </Tab>
 
-        <!-- Similar structure for Terrains tab -->
         <Tab text="Terrains" closable="false">
             <BorderPane>
                 <left>
@@ -197,7 +194,6 @@
             </BorderPane>
         </Tab>
 
-        <!-- Similar structure for Reservations tab -->
         <Tab text="Reservations" closable="false">
             <BorderPane>
                 <left>
@@ -206,20 +202,37 @@
                         <GridPane vgap="10" hgap="15">
                             <Label text="Reservation ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                             <TextField fx:id="ReservationIdField" promptText="Enter Reservation ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                            
-                            <Label text="User ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="ReservationIdUserField" promptText="Enter User ID" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-                            
-                            <Label text="Salle ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="ReservationIdSalleField" promptText="Enter Salle ID" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                            
-                            <Label text="Event ID:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                            <TextField fx:id="ReservationIdEventField" promptText="Enter
+                  <Label text="User ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+<ComboBox fx:id="ReservationIdUserComboBox" 
+          prefWidth="250" 
+          promptText="Select User"
+          style="-fx-font-size: 12;"
+          GridPane.rowIndex="1" 
+          GridPane.columnIndex="1"/>
 
-                            Event ID" prefWidth="250" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                            
-                            <Label text="Terrain ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextField fx:id="ReservationIdTerrainField" promptText="Enter Terrain ID" prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+<Label text="Salle ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+<ComboBox fx:id="ReservationIdSalleComboBox" 
+          prefWidth="250" 
+          promptText="Select Salle"
+          style="-fx-font-size: 12;"
+          GridPane.rowIndex="2" 
+          GridPane.columnIndex="1"/>
+
+<Label text="Event ID:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+<ComboBox fx:id="ReservationIdEventComboBox" 
+          prefWidth="250" 
+          promptText="Select Event"
+          style="-fx-font-size: 12;"
+          GridPane.rowIndex="3" 
+          GridPane.columnIndex="1"/>
+
+<Label text="Terrain ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+<ComboBox fx:id="ReservationIdTerrainComboBox" 
+          prefWidth="250" 
+          promptText="Select Terrain"
+          style="-fx-font-size: 12;"
+          GridPane.rowIndex="4" 
+          GridPane.columnIndex="1"/>
                             
                             <Label text="Date:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
                             <DatePicker fx:id="ReservationDateField" promptText="Select Date" prefWidth="250" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
@@ -232,27 +245,52 @@
                             <Button text="View All Reservations" fx:id="viewReservationButton" onAction="#handleViewReservation"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
-                        <TextArea fx:id="instructionsTextArea"
-              text="Please select from the available dates (shown in green). Red dates are already reserved for this terrain/salle."
-              editable="false"
-              wrapText="true"
-              style="-fx-pref-width: 400px; 
-                     -fx-pref-height: 120px; 
-                     -fx-background-color: #f8fdf8; 
-                     -fx-border-color: #ccc; 
-                     -fx-border-radius: 8px; 
-                     -fx-font-size: 12px; 
-                     -fx-text-fill: #333; 
-                     -fx-padding: 10px; 
-                     -fx-control-inner-background: #ffffff; 
-                     -fx-border-width: 1px;" />
+                        
+                        <!-- Improved Instructions Panel -->
+                        <VBox fx:id="instructionsPanel" spacing="10" 
+                              style="-fx-background-color: #f8f9fa;
+                                     -fx-padding: 15;
+                                     -fx-border-color: #e9ecef;
+                                     -fx-border-radius: 8;
+                                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+                                     -fx-margin-top: 15;">
+                            
+                            <Label text="Reservation Guidelines" 
+                                   style="-fx-font-size: 14;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #495057;"/>
+                            
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Region style="-fx-background-color: #28a745;
+                                              -fx-min-width: 12;
+                                              -fx-min-height: 12;
+                                              -fx-background-radius: 6;"/>
+                                <Label text="Available Dates" 
+                                       style="-fx-font-size: 12;
+                                              -fx-text-fill: #495057;"/>
+                            </HBox>
+                            
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Region style="-fx-background-color: #dc3545;
+                                              -fx-min-width: 12;
+                                              -fx-min-height: 12;
+                                              -fx-background-radius: 6;"/>
+                                <Label text="Reserved Dates" 
+                                       style="-fx-font-size: 12;
+                                              -fx-text-fill: #495057;"/>
+                            </HBox>
+                            
+                            <Label text="Please select from the available dates shown in the calendar. Reserved dates are marked in red and cannot be selected." 
+                                   wrapText="true"
+                                   style="-fx-font-size: 12;
+                                          -fx-text-fill: #6c757d;
+                                          -fx-padding: 5 0 0 0;"/>
+                        </VBox>
                     </VBox>
                 </left>
-                 <VBox fx:id="Warning" spacing="15" minWidth="200">
-         
-            
-            
-        </VBox>
+                
+                <VBox fx:id="Warning" spacing="15" minWidth="200"/>
+                
                 <center>
                     <TableView fx:id="reservationTable" style="-fx-padding: 20;">
                         <columns>
@@ -266,9 +304,6 @@
                     </TableView>
                 </center>
             </BorderPane>
-            
         </Tab>
-        
     </TabPane>
-  
 </VBox>

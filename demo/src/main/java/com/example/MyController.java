@@ -10,17 +10,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MyController {
-
-
     private db conn;
     private GenericDAO<User> userDao;
     private GenericDAO<event> eventDao;
@@ -53,10 +47,10 @@ public class MyController {
     @FXML private TextArea TerrainResultArea;
     
     @FXML private TextField ReservationIdField;
-    @FXML private TextField ReservationIdUserField;
-    @FXML private TextField ReservationIdEventField;
-    @FXML private TextField ReservationIdSalleField;
-    @FXML private TextField ReservationIdTerrainField;
+    @FXML private ComboBox<String> ReservationIdUserComboBox;
+    @FXML private ComboBox<String> ReservationIdEventComboBox;
+    @FXML private ComboBox<String> ReservationIdSalleComboBox;
+    @FXML private ComboBox<String> ReservationIdTerrainComboBox;
     @FXML private DatePicker ReservationDateField;
     @FXML private TextArea ReservationResultArea;
     
@@ -72,62 +66,43 @@ public class MyController {
     @FXML private Button addSalleButton;
     @FXML private Button addTerrainButton;
     @FXML private Button addReservationButton;
-    @FXML
-private TableView<terrain> terrainTable;
-@FXML
-private TableColumn<terrain, String> nameColumn;
-@FXML
-private TableColumn<terrain, String> typeColumn;
-    @FXML
-private TableView<salle> salleTable;
-@FXML
-private TableColumn<salle, String> sallenameColumn;
-@FXML
-private TableColumn<salle, String> salletypeColumn;
-@FXML
-private TableColumn<salle, String> salleCapaciteColumn;
 
-@FXML
-private TableView<event> eventTable;
-@FXML
-private TableColumn<event, String> eventnameColumn;
-@FXML
-private TableColumn<event, String> eventDateColumn;
-@FXML
-private TableColumn<event, String> DescriptionColumn;
-@FXML
-private TableColumn<event, String> Eventuser_idColumn;
-@FXML
-private TableView<User> userTable;
-@FXML
-private TableColumn<User, String> usernameColumn;
-@FXML
-private TableColumn<User, String> userPrenomColumn;
-@FXML
-private TableColumn<event, String> useremailColumn;
-@FXML
-private TableColumn<event, String> usertypeColumn;
-@FXML
-private TableView<reservation> reservationTable;
-@FXML
-private TableColumn<reservation, String> user_idColumn;
-@FXML
-private TableColumn<reservation, String> event_idColumn;
-@FXML
-private TableColumn<event, String> salle_idColumn;
-@FXML
-private TableColumn<event, String> terrain_idColumn;
-@FXML
-private TableColumn<event, String> date_idColumn;
-private terrain selectedTerrain;
-private salle selectedSalle;
+    @FXML private TableView<terrain> terrainTable;
+    @FXML private TableColumn<terrain, String> nameColumn;
+    @FXML private TableColumn<terrain, String> typeColumn;
+    
+    @FXML private TableView<salle> salleTable;
+    @FXML private TableColumn<salle, String> sallenameColumn;
+    @FXML private TableColumn<salle, Integer> salleCapaciteColumn;
+    
+    @FXML private TableView<event> eventTable;
+    @FXML private TableColumn<event, String> eventnameColumn;
+    @FXML private TableColumn<event, String> eventDateColumn;
+    @FXML private TableColumn<event, String> DescriptionColumn;
+    @FXML private TableColumn<event, Integer> Eventuser_idColumn;
+    
+    @FXML private TableView<User> userTable;
+    @FXML private TableColumn<User, String> usernameColumn;
+    @FXML private TableColumn<User, String> userPrenomColumn;
+    @FXML private TableColumn<User, String> useremailColumn;
+    @FXML private TableColumn<User, String> usertypeColumn;
+    
+    @FXML private TableView<reservation> reservationTable;
+    @FXML private TableColumn<reservation, Integer> user_idColumn;
+    @FXML private TableColumn<reservation, Integer> event_idColumn;
+    @FXML private TableColumn<reservation, Integer> salle_idColumn;
+    @FXML private TableColumn<reservation, Integer> terrain_idColumn;
+    @FXML private TableColumn<reservation, LocalDate> date_idColumn;
 
+    private terrain selectedTerrain;
+    private salle selectedSalle;
 
-private ObservableList<terrain> terrainList = FXCollections.observableArrayList();
-private ObservableList<salle> salleList = FXCollections.observableArrayList();
-private ObservableList<event> eventList = FXCollections.observableArrayList();
-private ObservableList<User> userList = FXCollections.observableArrayList();
-private ObservableList<reservation> reservationsList = FXCollections.observableArrayList();
+    private ObservableList<terrain> terrainList = FXCollections.observableArrayList();
+    private ObservableList<salle> salleList = FXCollections.observableArrayList();
+    private ObservableList<event> eventList = FXCollections.observableArrayList();
+    private ObservableList<User> userList = FXCollections.observableArrayList();
+    private ObservableList<reservation> reservationsList = FXCollections.observableArrayList();
+
     @FXML
     public void initialize() {
         conn = db.getInstance();
@@ -139,57 +114,93 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
         
         typeComboBox.getItems().addAll("ETUDIANT", "PROFESSEUR");
 
-    nameColumn.setCellValueFactory(new PropertyValueFactory<>("nomTerrain"));
-    typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    sallenameColumn.setCellValueFactory(new PropertyValueFactory<>("nom_salle"));
-    salleCapaciteColumn.setCellValueFactory(new PropertyValueFactory<>("capacite"));
-    eventnameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
-    eventDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-    DescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-    Eventuser_idColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-    usernameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
-    userPrenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
-    useremailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-    usertypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    user_idColumn.setCellValueFactory(new PropertyValueFactory<>("id_user"));
-    event_idColumn.setCellValueFactory(new PropertyValueFactory<>("id_event"));
-    salle_idColumn.setCellValueFactory(new PropertyValueFactory<>("id_salle"));
-    terrain_idColumn.setCellValueFactory(new PropertyValueFactory<>("id_terrain"));
-    date_idColumn.setCellValueFactory(new PropertyValueFactory<>("date_reservation"));
-    // Bind the TableView to the ObservableList
-    terrainTable.setItems(terrainList);
-    salleTable.setItems(salleList);
-   userTable.setItems(userList);
-   reservationTable.setItems(reservationsList);
-    eventTable.setItems(eventList);
+        // Initialize table columns with correct types
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("nomTerrain"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        sallenameColumn.setCellValueFactory(new PropertyValueFactory<>("nom_salle"));
+        salleCapaciteColumn.setCellValueFactory(new PropertyValueFactory<>("capacite"));
+        eventnameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        eventDateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        DescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        Eventuser_idColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        usernameColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        userPrenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+        useremailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        usertypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        user_idColumn.setCellValueFactory(new PropertyValueFactory<>("id_user"));
+        event_idColumn.setCellValueFactory(new PropertyValueFactory<>("id_event"));
+        salle_idColumn.setCellValueFactory(new PropertyValueFactory<>("id_salle"));
+        terrain_idColumn.setCellValueFactory(new PropertyValueFactory<>("id_terrain"));
+        date_idColumn.setCellValueFactory(new PropertyValueFactory<>("date_reservation"));
+
+        // Bind tables to their respective lists
+        terrainTable.setItems(terrainList);
+        salleTable.setItems(salleList);
+        userTable.setItems(userList);
+        reservationTable.setItems(reservationsList);
+        eventTable.setItems(eventList);
+
         setupButtonBindings();
         updateDashboard();
         updateChart();
-            // Add listeners for terrain and salle selection
-            ReservationIdTerrainField.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue != null && !newValue.isEmpty()) {
-                    try {
-                        int terrainId = Integer.parseInt(newValue);
-                        selectedTerrain = terrainDao.getById(terrainId);
-                        updateAvailableDates();
-                    } catch (NumberFormatException e) {
-                        selectedTerrain = null;
-                    }
-                }
-            });
+        setupReservationListeners();
+       
+       ObservableList<User> users = FXCollections.observableArrayList(userDao.getAll());
+ObservableList<String> userNames = users.stream()
+                                         .map(User::toString) // Convert to a list of strings (user names)
+                                         .collect(Collectors.toCollection(FXCollections::observableArrayList));
+ReservationIdUserComboBox.setItems(userNames);
     
-            ReservationIdSalleField.textProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue != null && !newValue.isEmpty()) {
-                    try {
-                        int salleId = Integer.parseInt(newValue);
-                        selectedSalle = salleDao.getById(salleId);
-                        updateAvailableDates();
-                    } catch (NumberFormatException e) {
-                        selectedSalle = null;
-                    }
+      // For Salles
+ObservableList<salle> salles = FXCollections.observableArrayList(salleDao.getAll());
+ObservableList<String> salleNames = salles.stream()
+                                          .map(salle::toString) // Convert to a list of strings (salle names)
+                                          .collect(Collectors.toCollection(FXCollections::observableArrayList));
+ReservationIdSalleComboBox.setItems(salleNames);
+
+// For Events
+ObservableList<event> events = FXCollections.observableArrayList(eventDao.getAll());
+ObservableList<String> eventTitles = events.stream()
+                                           .map(event::toString) // Convert to a list of strings (event titles)
+                                           .collect(Collectors.toCollection(FXCollections::observableArrayList));
+ReservationIdEventComboBox.setItems(eventTitles);
+
+// For Terrains
+ObservableList<terrain> terrains = FXCollections.observableArrayList(terrainDao.getAll());
+ObservableList<String> terrainNames = terrains.stream()
+                                              .map(terrain::toString) // Convert to a list of strings (terrain names)
+                                              .collect(Collectors.toCollection(FXCollections::observableArrayList));
+ReservationIdTerrainComboBox.setItems(terrainNames);
+
+      
+    }
+
+    private void setupReservationListeners() {
+        ReservationIdTerrainComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.isEmpty()) {
+                try {
+                    int terrainId = Integer.parseInt(newValue);
+                    selectedTerrain = terrainDao.getById(terrainId);
+                    updateAvailableDates();
+                } catch (NumberFormatException e) {
+                    selectedTerrain = null;
                 }
-            });
-            ReservationDateField.setDayCellFactory(this::createDayCellFactory);
+            }
+        });
+
+        ReservationIdSalleComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && !newValue.isEmpty()) {
+                try {
+                    int salleId = Integer.parseInt(newValue);
+                    selectedSalle = salleDao.getById(salleId);
+                    updateAvailableDates();
+                } catch (NumberFormatException e) {
+                    selectedSalle = null;
+                }
+            }
+        });
+
+        ReservationDateField.setDayCellFactory(this::createDayCellFactory);
     }
     private DateCell createDayCellFactory(DatePicker datePicker) {
         return new DateCell() {
@@ -427,10 +438,10 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
     private void handleAddReservation() {
         try {
             int id = Integer.parseInt(ReservationIdField.getText());
-            int idUser = Integer.parseInt(ReservationIdUserField.getText());
-            int idEvent = Integer.parseInt(ReservationIdEventField.getText());
-            int idSalle = Integer.parseInt(ReservationIdSalleField.getText());
-            int idTerrain = Integer.parseInt(ReservationIdTerrainField.getText());
+            int idUser = Integer.parseInt(ReservationIdUserComboBox.getValue().toString());
+            int idEvent = Integer.parseInt(ReservationIdEventComboBox.getValue().toString());
+            int idSalle = Integer.parseInt(ReservationIdSalleComboBox.getValue().toString());
+            int idTerrain = Integer.parseInt(ReservationIdTerrainComboBox.getValue().toString());
             LocalDate dateReservation = ReservationDateField.getValue();
 
             if (dateReservation == null) {
@@ -449,11 +460,19 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
             ToastNotification.showToast(new Stage(), "Full Reservation Added Successfully!");
             
             // Clear fields
-            ReservationIdField.clear();
-            ReservationIdEventField.clear();
-            ReservationIdSalleField.clear();
-            ReservationIdTerrainField.clear();
-            ReservationIdUserField.clear();
+            if (ReservationIdEventComboBox.isEditable()) {
+                ReservationIdEventComboBox.getEditor().clear();
+            }
+            if (ReservationIdSalleComboBox.isEditable()) {
+                ReservationIdSalleComboBox.getEditor().clear();
+            }
+            if (ReservationIdTerrainComboBox.isEditable()) {
+                ReservationIdTerrainComboBox.getEditor().clear();
+            }
+            if (ReservationIdUserComboBox.isEditable()) {
+                ReservationIdUserComboBox.getEditor().clear();
+            }
+            
             ReservationDateField.setValue(null);
             
             // Update the calendar after adding a new reservation
@@ -503,10 +522,10 @@ private ObservableList<reservation> reservationsList = FXCollections.observableA
         );
         addReservationButton.disableProperty().bind(
             ReservationIdField.textProperty().isEmpty()
-            .or(ReservationIdUserField.textProperty().isEmpty())
-            .or(ReservationIdEventField.textProperty().isEmpty())
-            .or(ReservationIdSalleField.textProperty().isEmpty())
-            .or(ReservationIdTerrainField.textProperty().isEmpty())
+            .or(ReservationIdUserComboBox.valueProperty().isNull())
+            .or(ReservationIdEventComboBox.valueProperty().isNull())
+            .or(ReservationIdSalleComboBox.valueProperty().isNull())
+            .or(ReservationIdTerrainComboBox.valueProperty().isNull())
             .or(ReservationDateField.valueProperty().isNull())
         );
         }
