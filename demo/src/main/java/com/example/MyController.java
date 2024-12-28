@@ -145,33 +145,32 @@ public class MyController {
         updateChart();
         setupReservationListeners();
        
-       ObservableList<User> users = FXCollections.observableArrayList(userDao.getAll());
-ObservableList<String> userNames = users.stream()
-                                         .map(User::toString) // Convert to a list of strings (user names)
-                                         .collect(Collectors.toCollection(FXCollections::observableArrayList));
-ReservationIdUserComboBox.setItems(userNames);
+        ObservableList<User> users = FXCollections.observableArrayList(userDao.getAll());
+    ObservableList<String> userIds = users.stream()
+        .map(user -> String.valueOf(user.getId()))
+        .collect(Collectors.toCollection(FXCollections::observableArrayList));
+    ReservationIdUserComboBox.setItems(userIds);
     
-      // For Salles
-ObservableList<salle> salles = FXCollections.observableArrayList(salleDao.getAll());
-ObservableList<String> salleNames = salles.stream()
-                                          .map(salle::toString) // Convert to a list of strings (salle names)
-                                          .collect(Collectors.toCollection(FXCollections::observableArrayList));
-ReservationIdSalleComboBox.setItems(salleNames);
+    // For Salles
+    ObservableList<salle> salles = FXCollections.observableArrayList(salleDao.getAll());
+    ObservableList<String> salleIds = salles.stream()
+        .map(salle -> String.valueOf(salle.getId_salle()))
+        .collect(Collectors.toCollection(FXCollections::observableArrayList));
+    ReservationIdSalleComboBox.setItems(salleIds);
 
-// For Events
-ObservableList<event> events = FXCollections.observableArrayList(eventDao.getAll());
-ObservableList<String> eventTitles = events.stream()
-                                           .map(event::toString) // Convert to a list of strings (event titles)
-                                           .collect(Collectors.toCollection(FXCollections::observableArrayList));
-ReservationIdEventComboBox.setItems(eventTitles);
+    // For Events
+    ObservableList<event> events = FXCollections.observableArrayList(eventDao.getAll());
+    ObservableList<String> eventIds = events.stream()
+        .map(event -> String.valueOf(event.getId()))
+        .collect(Collectors.toCollection(FXCollections::observableArrayList));
+    ReservationIdEventComboBox.setItems(eventIds);
 
-// For Terrains
-ObservableList<terrain> terrains = FXCollections.observableArrayList(terrainDao.getAll());
-ObservableList<String> terrainNames = terrains.stream()
-                                              .map(terrain::toString) // Convert to a list of strings (terrain names)
-                                              .collect(Collectors.toCollection(FXCollections::observableArrayList));
-ReservationIdTerrainComboBox.setItems(terrainNames);
-
+    // For Terrains
+    ObservableList<terrain> terrains = FXCollections.observableArrayList(terrainDao.getAll());
+    ObservableList<String> terrainIds = terrains.stream()
+        .map(terrain -> String.valueOf(terrain.getIdTerrain()))
+        .collect(Collectors.toCollection(FXCollections::observableArrayList));
+    ReservationIdTerrainComboBox.setItems(terrainIds);
       
     }
 

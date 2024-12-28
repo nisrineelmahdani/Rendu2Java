@@ -245,6 +245,13 @@
                             <Button text="View All Reservations" fx:id="viewReservationButton" onAction="#handleViewReservation"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
+                         <TextArea fx:id="ReservationResultArea" 
+                    prefWidth="250" 
+                    prefHeight="100" 
+                    wrapText="true" 
+                    editable="false" 
+                    promptText="Operation results will appear here..."
+                    style="-fx-font-size: 12;"/>
                         
                         <!-- Improved Instructions Panel -->
                         <VBox fx:id="instructionsPanel" spacing="10" 
