@@ -38,10 +38,10 @@
                             <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                             <TextField fx:id="idField" promptText="Enter User ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
                             
-                            <Label text="Nom:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label text="FirstName:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                             <TextField fx:id="nomField" promptText="Enter Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                             
-                            <Label text="Prenom:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Label text="LastName:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                             <TextField fx:id="prenomField" promptText="Enter Prenom" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                             
                             <Label text="Email:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
@@ -57,6 +57,13 @@
                             <Button text="View All Users" fx:id="viewUsersButton" onAction="#handleViewUsers"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
+                               <TextArea fx:id="UserResultArea" 
+                    prefWidth="250" 
+                    prefHeight="100" 
+                    wrapText="true" 
+                    editable="false" 
+                    promptText="Operation results will appear here..."
+                    style="-fx-font-size: 12;"/>
                     </VBox>
                 </left>
                 
@@ -87,15 +94,22 @@
                             <TextField fx:id="eventNameField" promptText="Enter Event Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                             
                             <Label text="Event Date:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="eventDateField" promptText="Enter Event Date" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                            
+                           <!-- <TextField fx:id="eventDateField" promptText="Enter Event Date" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>-->
+                            <DatePicker fx:id="EventDateField" promptText="Select Date" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                             <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                             <TextArea fx:id="descriptionField" promptText="Enter Event Description" prefWidth="250" prefRowCount="3" 
                                     wrapText="true" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                            
-                            <Label text="User ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextField fx:id="user_idField" promptText="Enter User ID" prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-                        </GridPane>
+                             <Label text="User id:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                          <!--  <Label text="User ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <TextField fx:id="user_idField" promptText="Enter User ID" prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>-->
+                            <ComboBox fx:id="EventIdUserComboBox" 
+          prefWidth="250" 
+          promptText="Select User"
+          style="-fx-font-size: 12;"
+          GridPane.rowIndex="4" 
+          GridPane.columnIndex="1"/>
+                        </GridPane> 
+                        
                         
                         <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
                             <Button text="Add Event" fx:id="addEventButton" onAction="#handleAddEvent"
@@ -103,6 +117,13 @@
                             <Button text="View All Events" fx:id="viewEventsButton" onAction="#handleViewEvents"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
+                               <TextArea fx:id="EventResultArea" 
+                    prefWidth="250" 
+                    prefHeight="100" 
+                    wrapText="true" 
+                    editable="false" 
+                    promptText="Operation results will appear here..."
+                    style="-fx-font-size: 12;"/>
                     </VBox>
                 </left>
                 
@@ -126,13 +147,13 @@
                     <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
                         <Label text="Salle Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
                         <GridPane vgap="10" hgap="15">
-                            <Label text="Salle ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Label text="Room ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                             <TextField fx:id="salleIdField" promptText="Enter Salle ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
                             
-                            <Label text="Salle Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label text="Room Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                             <TextField fx:id="salleNameField" promptText="Enter Salle Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                             
-                            <Label text="Capacite:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Label text="Capacity:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                             <TextField fx:id="salleCapaciteField" promptText="Enter Salle Capacity" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                         </GridPane>
                         
@@ -142,6 +163,13 @@
                             <Button text="View All Salles" fx:id="viewSalleButton" onAction="#handleViewSalle"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
+                               <TextArea fx:id="SalleResultArea" 
+                    prefWidth="250" 
+                    prefHeight="100" 
+                    wrapText="true" 
+                    editable="false" 
+                    promptText="Operation results will appear here..."
+                    style="-fx-font-size: 12;"/>
                     </VBox>
                 </left>
                 
@@ -179,6 +207,13 @@
                             <Button text="View All Terrains" fx:id="viewTerrainButton" onAction="#handleViewTerrain"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
+                               <TextArea fx:id="TerrainResultArea" 
+                    prefWidth="250" 
+                    prefHeight="100" 
+                    wrapText="true" 
+                    editable="false" 
+                    promptText="Operation results will appear here..."
+                    style="-fx-font-size: 12;"/>
                     </VBox>
                 </left>
                 
@@ -210,7 +245,7 @@
           GridPane.rowIndex="1" 
           GridPane.columnIndex="1"/>
 
-<Label text="Salle ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+<Label text="Room ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
 <ComboBox fx:id="ReservationIdSalleComboBox" 
           prefWidth="250" 
           promptText="Select Salle"

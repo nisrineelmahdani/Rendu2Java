@@ -1,14 +1,16 @@
 package com.example;
 
+import java.time.LocalDate;
+
 public class event {
     private int id;
     private String nom;
-    private String date;
+    private LocalDate date;
     private String description;
     private int userId; 
 
   
-    public event(int id, String nom, String date, String description, int userId) {
+    public event(int id, String nom, LocalDate date, String description, int userId) {
         this.id = id;
         this.nom = nom;
         this.date = date;
@@ -33,11 +35,11 @@ public class event {
         this.nom = nom;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

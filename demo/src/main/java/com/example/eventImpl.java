@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,9 @@ public class eventImpl  implements GenericDAO<event>{
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, event.getId());
             pstmt.setString(2, event.getNom());
-            pstmt.setString(3, event.getDate());
+          LocalDate dateEvent = event.getDate();
+String formattedDate = dateEvent.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+pstmt.setString(3, formattedDate);
             pstmt.setString(4, event.getDescription());
             pstmt.setInt(5, event.getUserId());
          
@@ -46,7 +50,7 @@ public class eventImpl  implements GenericDAO<event>{
                 event = new event(
                     rs.getInt("id"),
                     rs.getString("nom"),
-                    rs.getString("date"),
+                    rs.getObject("date", LocalDate.class),
                     rs.getString("description"),
                     rs.getInt("id_user")
                   
@@ -70,7 +74,7 @@ public class eventImpl  implements GenericDAO<event>{
             events.add(new event(
                 rs.getInt("id"),
                 rs.getString("nom"),
-                rs.getString("date"),
+                rs.getObject("date", LocalDate.class),
                 rs.getString("description"),
                 rs.getInt("id_user")
             ));
@@ -88,7 +92,9 @@ public class eventImpl  implements GenericDAO<event>{
             String sql = "UPDATE events SET nom= ?, date= ?, description= ?, id_user= ? WHERE id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, event.getNom());
-            pstmt.setString(2, event.getDate());
+            LocalDate dateEvent = event.getDate();
+            String formattedDate = dateEvent.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            pstmt.setString(6, formattedDate);
      
             pstmt.setString(3, event.getDescription());
             pstmt.setInt(4, event.getUserId());

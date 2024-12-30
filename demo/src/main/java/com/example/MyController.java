@@ -27,30 +27,33 @@ public class MyController {
     @FXML private TextField prenomField;
     @FXML private TextField emailField;
     @FXML private ComboBox<String> typeComboBox;
-    @FXML private TextArea resultArea;
+    @FXML private TextArea UserResultArea;
     
     @FXML private TextField eventIdField;
     @FXML private TextField eventNameField;
-    @FXML private TextField eventDateField;
+   // @FXML private TextField eventDateField;
+   @FXML private DatePicker EventDateField;
     @FXML private TextArea descriptionField;
-    @FXML private TextField user_idField;
-    @FXML private TextArea eventResultArea;
-    
+    //@FXML private TextField user_idField;
+    @FXML private TextArea EventResultArea;
+    @FXML private ComboBox<String> EventIdUserComboBox;
+
     @FXML private TextField salleIdField;
     @FXML private TextField salleNameField;
     @FXML private TextField salleCapaciteField;
-    @FXML private TextArea salleResultArea;
+    @FXML private TextArea SalleResultArea;
     
     @FXML private TextField TerrainIdField;
     @FXML private TextField TerrainNameField;
     @FXML private TextField TerrainTypeField;
     @FXML private TextArea TerrainResultArea;
-    
+ 
     @FXML private TextField ReservationIdField;
     @FXML private ComboBox<String> ReservationIdUserComboBox;
     @FXML private ComboBox<String> ReservationIdEventComboBox;
     @FXML private ComboBox<String> ReservationIdSalleComboBox;
     @FXML private ComboBox<String> ReservationIdTerrainComboBox;
+   
     @FXML private DatePicker ReservationDateField;
     @FXML private TextArea ReservationResultArea;
     
@@ -150,6 +153,7 @@ public class MyController {
         .map(user -> String.valueOf(user.getId()))
         .collect(Collectors.toCollection(FXCollections::observableArrayList));
     ReservationIdUserComboBox.setItems(userIds);
+    EventIdUserComboBox.setItems(userIds);
     
     // For Salles
     ObservableList<salle> salles = FXCollections.observableArrayList(salleDao.getAll());
@@ -289,12 +293,13 @@ public class MyController {
             String type = typeComboBox.getValue();
 
             if (type == null || (!type.equals("ETUDIANT") && !type.equals("PROFESSEUR"))) {
-                resultArea.setText("Invalid user type. Please select 'ETUDIANT' or 'PROFESSEUR'.");
+                UserResultArea.setText("Invalid user type. Please select 'ETUDIANT' or 'PROFESSEUR'.");
                 return;
             }
 
             User newUser = new User(id, nom, prenom, email, type);
             userDao.add(newUser);
+            UserResultArea.setText("User successfully added:\n" + newUser);
             /*  Show success alert
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Success");
@@ -311,7 +316,7 @@ public class MyController {
             emailField.clear();
             typeComboBox.getSelectionModel().clearSelection();
         } catch (Exception e) {
-            resultArea.setText("Error: " + e.getMessage());
+            UserResultArea.setText("Error: " + e.getMessage());
         }
     }
 
@@ -332,20 +337,21 @@ public class MyController {
         try {
             int eventId = Integer.parseInt(eventIdField.getText());
             String eventName = eventNameField.getText();
-            String eventDate = eventDateField.getText();
+            LocalDate eventDate =   EventDateField.getValue();
             String description = descriptionField.getText();
-            int userId = Integer.parseInt(user_idField.getText());
+           int idUser = Integer.parseInt(EventIdUserComboBox.getValue().toString());
 
-            event newEvent = new event(eventId, eventName, eventDate, description, userId);
+            event newEvent = new event(eventId, eventName, eventDate, description, idUser);
             eventDao.add(newEvent);
+            EventResultArea.setText("Event successfully added:\n" + newEvent);
             ToastNotification.showToast(new Stage(), "Event Added Successfully!");
            
             // Clear fields
             eventIdField.clear();
             eventNameField.clear();
-            eventDateField.clear();
+    
         } catch (Exception e) {
-            eventResultArea.setText("Error: " + e.getMessage());
+            EventResultArea.setText("Error: " + e.getMessage());
         }
     }
 
@@ -373,14 +379,14 @@ public class MyController {
 
             salle salle = new salle(id, nomSalle, capacite);
             salleDao.add(salle);
-           
+            SalleResultArea.setText("Salle successfully added:\n" + salle);
             ToastNotification.showToast(new Stage(), "Room Added Successfully!");
             // Clear fields
             salleIdField.clear();
             salleNameField.clear();
             salleCapaciteField.clear();
         } catch (Exception e) {
-            salleResultArea.setText("Error: " + e.getMessage());
+            SalleResultArea.setText("Error: " + e.getMessage());
         }
     }
 
@@ -405,7 +411,7 @@ public class MyController {
 
             terrain terrain = new terrain(id, nomTerrain, type);
             terrainDao.add(terrain);
-        
+            TerrainResultArea.setText("Terrain successfully added:\n" + terrain);
             ToastNotification.showToast(new Stage(), "Terrain Added Successfully!");
             // Clear fields
             TerrainIdField.clear();
@@ -455,7 +461,7 @@ public class MyController {
 
             reservation newReservation = new reservation(id, idUser, idEvent, idSalle, idTerrain, dateReservation);
             reservationDao.add(newReservation);
-            
+            ReservationResultArea.setText("Full Reservation successfully added:\n" + newReservation);
             ToastNotification.showToast(new Stage(), "Full Reservation Added Successfully!");
             
             // Clear fields
@@ -505,7 +511,7 @@ public class MyController {
         addEventButton.disableProperty().bind(
             eventIdField.textProperty().isEmpty()
             .or(eventNameField.textProperty().isEmpty())
-            .or(eventDateField.textProperty().isEmpty())
+            .or(EventDateField.valueProperty().isNull())
         );
         
         addSalleButton.disableProperty().bind(
