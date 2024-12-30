@@ -19,3 +19,87 @@
 .text-area {
     -fx-font-family: "Monospace";
 }
+/* Root styles */
+.root {
+    -fx-background-color: #f5f6fa;
+}
+
+/* Dashboard cards */
+.dashboard-card {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+    -fx-padding: 15px;
+}
+
+.dashboard-number {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* Tables */
+.table-view {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Buttons */
+.button {
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s;
+}
+
+.button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.add-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+}
+
+.view-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+/* Form fields */
+.text-field, .combo-box {
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #e0e0e0;
+}
+
+.text-field:focused, .combo-box:focused {
+    -fx-border-color: #2196F3;
+    -fx-effect: dropshadow(three-pass-box, rgba(33,150,243,0.2), 10, 0, 0, 0);
+}
+
+/* Tabs */
+.tab-pane .tab-header-area .tab {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 3 0;
+}
+
+.tab-pane .tab-header-area .tab:selected {
+    -fx-border-color: #2196F3;
+}
+
+/* Charts */
+.chart-pie-label {
+    -fx-font-size: 14px;
+}
+
+.chart-pie:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);
+}
