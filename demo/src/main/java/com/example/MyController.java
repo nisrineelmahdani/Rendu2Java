@@ -177,6 +177,36 @@ public class MyController {
     ReservationIdTerrainComboBox.setItems(terrainIds);
       
     }
+    private void refreshComboBoxes() {
+        // Refresh Users ComboBoxes
+        ObservableList<User> users = FXCollections.observableArrayList(userDao.getAll());
+        ObservableList<String> userIds = users.stream()
+            .map(user -> String.valueOf(user.getId()))
+            .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        ReservationIdUserComboBox.setItems(userIds);
+        EventIdUserComboBox.setItems(userIds);
+        
+        // Refresh Salles ComboBox
+        ObservableList<salle> salles = FXCollections.observableArrayList(salleDao.getAll());
+        ObservableList<String> salleIds = salles.stream()
+            .map(salle -> String.valueOf(salle.getId_salle()))
+            .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        ReservationIdSalleComboBox.setItems(salleIds);
+    
+        // Refresh Events ComboBox
+        ObservableList<event> events = FXCollections.observableArrayList(eventDao.getAll());
+        ObservableList<String> eventIds = events.stream()
+            .map(event -> String.valueOf(event.getId()))
+            .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        ReservationIdEventComboBox.setItems(eventIds);
+    
+        // Refresh Terrains ComboBox
+        ObservableList<terrain> terrains = FXCollections.observableArrayList(terrainDao.getAll());
+        ObservableList<String> terrainIds = terrains.stream()
+            .map(terrain -> String.valueOf(terrain.getIdTerrain()))
+            .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        ReservationIdTerrainComboBox.setItems(terrainIds);
+    }
 
     private void setupReservationListeners() {
         ReservationIdTerrainComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -315,6 +345,7 @@ public class MyController {
             prenomField.clear();
             emailField.clear();
             typeComboBox.getSelectionModel().clearSelection();
+            refreshComboBoxes(); 
         } catch (Exception e) {
             UserResultArea.setText("Error: " + e.getMessage());
         }
@@ -349,7 +380,7 @@ public class MyController {
             // Clear fields
             eventIdField.clear();
             eventNameField.clear();
-    
+            refreshComboBoxes(); 
         } catch (Exception e) {
             EventResultArea.setText("Error: " + e.getMessage());
         }
@@ -385,6 +416,7 @@ public class MyController {
             salleIdField.clear();
             salleNameField.clear();
             salleCapaciteField.clear();
+            refreshComboBoxes(); 
         } catch (Exception e) {
             SalleResultArea.setText("Error: " + e.getMessage());
         }
@@ -417,6 +449,7 @@ public class MyController {
             TerrainIdField.clear();
             TerrainNameField.clear();
             TerrainTypeField.clear();
+            refreshComboBoxes(); 
         } catch (Exception e) {
             TerrainResultArea.setText("Error: " + e.getMessage());
         }
