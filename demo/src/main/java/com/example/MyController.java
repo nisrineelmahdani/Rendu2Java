@@ -548,7 +548,7 @@ public class MyController {
             eventNombre.setText( "Events: "+ String.valueOf(eventCount));
             salleNombre.setText( "Salles :"+String.valueOf(salleCount));
             terrainsNombre.setText( "Terrains: "+ String.valueOf(terrainCount));
-            reservationNombre.setText("Reservations" +String.valueOf(reservationCount));
+            reservationNombre.setText("Reservations: " +String.valueOf(reservationCount));
         }
         private void updateChart() {
             // Get the count of each category
