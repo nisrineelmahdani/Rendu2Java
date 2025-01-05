@@ -12,20 +12,19 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scene.fxml"));
+         // charger fichier fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/login.fxml"));
             Parent root = loader.load();
 
-            // Create the scene
             Scene scene = new Scene(root, 900, 900);
             
-            // Add CSS
-            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("style2.css").toExternalForm());
             
-            // Configure the stage
+            
+           
             primaryStage.setScene(scene);
             primaryStage.setFullScreen(true);
-            primaryStage.setFullScreenExitHint(""); // Optional: hide the exit hint
+        
             primaryStage.setResizable(true);
             primaryStage.setWidth(900);
             primaryStage.setHeight(800);
@@ -42,7 +41,7 @@ public class Main extends Application {
 
     @Override
     public void stop() throws Exception {
-        // Close database connection when application stops
+       
         if (conn != null) {
             conn.close();
         }

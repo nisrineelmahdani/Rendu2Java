@@ -117,7 +117,7 @@ public class MyController {
         
         typeComboBox.getItems().addAll("ETUDIANT", "PROFESSEUR");
 
-        // Initialize table columns with correct types
+    // les valeurs des colonnes des tables
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("nomTerrain"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         sallenameColumn.setCellValueFactory(new PropertyValueFactory<>("nom_salle"));
@@ -147,7 +147,7 @@ public class MyController {
         updateDashboard();
         updateChart();
         setupReservationListeners();
-       
+       // les ids dans les les comboxes
         ObservableList<User> users = FXCollections.observableArrayList(userDao.getAll());
     ObservableList<String> userIds = users.stream()
         .map(user -> String.valueOf(user.getId()))
@@ -177,8 +177,7 @@ public class MyController {
     ReservationIdTerrainComboBox.setItems(terrainIds);
       
     }
-   // Add this simple function to your controller
-// Add this simple function to your controller
+
 private void updateComboBoxIds(ComboBox<String> comboBox, int newId) {
     comboBox.getItems().add(String.valueOf(newId));
 }
