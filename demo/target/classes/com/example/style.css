@@ -195,22 +195,46 @@
     -fx-text-fill: white;
 }
 
-/* PieChart */
+
 .chart {
     -fx-background-color: #2d2d2d;
+    -fx-padding: 10px;
 }
 
 .chart-plot-background {
     -fx-background-color: transparent;
 }
 
+.chart-pie {
+    -fx-border-color: transparent;
+}
+
 .chart-pie-label {
-    -fx-text-fill: white;
+    -fx-fill: white;  /* This is crucial - it sets the text color */
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.chart-pie-label-line {
+    -fx-stroke: white;  /* Makes the lines connecting labels to slices visible */
+    -fx-fill: white;
 }
 
 .chart-legend {
     -fx-background-color: transparent;
 }
+
+.chart-legend-item {
+    -fx-text-fill: white;
+}
+
+.chart-title {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
 
 /* Scrollbars */
 .scroll-bar {

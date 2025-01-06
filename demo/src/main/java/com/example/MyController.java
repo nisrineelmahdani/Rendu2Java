@@ -563,16 +563,18 @@ private void updateComboBoxIds(ComboBox<String> comboBox, int newId) {
             int eventCount = eventDao.getAll().size();
             int salleCount = salleDao.getAll().size();
             int terrainCount = terrainDao.getAll().size();
+            int reservationCount = reservationDao.getAll().size();
         
             // Create PieChart data slices
             PieChart.Data slice1 = new PieChart.Data("Users", userCount);
             PieChart.Data slice2 = new PieChart.Data("Events", eventCount);
             PieChart.Data slice3 = new PieChart.Data("Salles", salleCount);
             PieChart.Data slice4 = new PieChart.Data("Terrains", terrainCount);
+            PieChart.Data slice5 = new PieChart.Data("Reservations", reservationCount);
         
             // Clear existing data and add new slices
             statisticsChart.getData().clear();
-            statisticsChart.getData().addAll(slice1, slice2, slice3, slice4);
+            statisticsChart.getData().addAll(slice1, slice2, slice3, slice4, slice5);
         }
   
         

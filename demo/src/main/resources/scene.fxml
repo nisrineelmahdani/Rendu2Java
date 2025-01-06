@@ -14,17 +14,16 @@
       prefHeight="1080"
       style="-fx-background-color: #1a1a1a;">
  <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: #2d2d2d; -fx-padding: 10; -fx-border-color: #3d3d3d; -fx-border-width: 0 0 1 0;">
-        <VBox fx:id="dashboard" spacing="15" minWidth="200" style="-fx-background-color: #2d2d2d;">
+        <VBox fx:id="dashboard" spacing="15" minWidth="200">
             <Label text="Dashboard Summary" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
-            <Label fx:id="userNombre" text="Users: 0" style="-fx-font-size: 14; -fx-text-fill: #e0e0e0;"/>
+            <Label fx:id="userNombre" text="Users: 0" style="-fx-font-size: 14; -fx-text-fill: white;"/>
             <Label fx:id="eventNombre" text="Events: 0" style="-fx-font-size: 14; -fx-text-fill: #e0e0e0;"/>
             <Label fx:id="salleNombre" text="Salles: 0" style="-fx-font-size: 14; -fx-text-fill: #e0e0e0;"/>
             <Label fx:id="terrainsNombre" text="Terrains: 0" style="-fx-font-size: 14; -fx-text-fill: #e0e0e0;"/>
             <Label fx:id="reservationNombre" text="Reservations: 0" style="-fx-font-size: 14; -fx-text-fill: #e0e0e0;"/>
         </VBox>
         
-        <PieChart fx:id="statisticsChart" prefHeight="200" prefWidth="400" 
-                  style="-fx-background-color: #2d2d2d; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0); -fx-pie-label-fill: white;"/>
+        <PieChart fx:id="statisticsChart" prefHeight="200" prefWidth="400" />
     </HBox>
 
     <TabPane VBox.vgrow="ALWAYS" style="-fx-background-color: #1a1a1a;">
@@ -91,34 +90,40 @@
             </BorderPane>
         </Tab>
         <Tab text="Events" closable="false">
-            <BorderPane  style="-fx-background-color: #2d2d2d;">
+            <BorderPane style="-fx-background-color: #2d2d2d;">
                 <left>
-                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
-                        <Label text="Event Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: #2d2d2d;">
+                        <Label text="Event Information" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
                         <GridPane vgap="10" hgap="15">
-                            <Label text="Event ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="eventIdField" promptText="Enter Event ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Event ID:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="eventIdField" promptText="Enter Event ID" prefWidth="250" 
+                                     style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                     GridPane.rowIndex="0" GridPane.columnIndex="1"/>
                             
-                            <Label text="Event Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="eventNameField" promptText="Enter Event Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <Label text="Event Name:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="eventNameField" promptText="Enter Event Name" prefWidth="250"
+                                     style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                     GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                             
-                            <Label text="Event Date:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                           <!-- <TextField fx:id="eventDateField" promptText="Enter Event Date" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>-->
-                            <DatePicker fx:id="EventDateField" promptText="Select Date" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-                            <Label text="Description:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <Label text="Event Date:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <DatePicker fx:id="EventDateField" promptText="Select Date" prefWidth="250" 
+                                      style="-fx-background-color: #3d3d3d;"
+                                      GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            
+                            <Label text="Description:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                             <TextArea fx:id="descriptionField" promptText="Enter Event Description" prefWidth="250" prefRowCount="3" 
-                                    wrapText="true" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-                             <Label text="User id:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                          <!--  <Label text="User ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                            <TextField fx:id="user_idField" promptText="Enter User ID" prefWidth="250" GridPane.rowIndex="4" GridPane.columnIndex="1"/>-->
+                                    wrapText="true" 
+                                    style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                    GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                            
+                            <Label text="User id:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
                             <ComboBox fx:id="EventIdUserComboBox" 
-          prefWidth="250" 
-          promptText="Select User"
-          style="-fx-font-size: 12;"
-          GridPane.rowIndex="4" 
-          GridPane.columnIndex="1"/>
-                        </GridPane> 
-                        
+                                    prefWidth="250" 
+                                    promptText="Select User"
+                                    style="-fx-background-color: #3d3d3d; -fx-text-fill: white;"
+                                    GridPane.rowIndex="4" 
+                                    GridPane.columnIndex="1"/>
+                        </GridPane>
                         
                         <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
                             <Button text="Add Event" fx:id="addEventButton" onAction="#handleAddEvent"
@@ -126,18 +131,19 @@
                             <Button text="View All Events" fx:id="viewEventsButton" onAction="#handleViewEvents"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
-                               <TextArea fx:id="EventResultArea" 
-                    prefWidth="250" 
-                    prefHeight="100" 
-                    wrapText="true" 
-                    editable="false" 
-                    promptText="Operation results will appear here..."
-                    style="-fx-font-size: 12;"/>
+                        
+                        <TextArea fx:id="EventResultArea" 
+                                 prefWidth="250" 
+                                 prefHeight="100" 
+                                 wrapText="true" 
+                                 editable="false" 
+                                 promptText="Operation results will appear here..."
+                                 style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080; -fx-font-size: 12;"/>
                     </VBox>
                 </left>
                 
                 <center>
-                    <TableView fx:id="eventTable" style="-fx-padding: 20;">
+                    <TableView fx:id="eventTable" style="-fx-background-color: #2d2d2d;">
                         <columns>
                             <TableColumn fx:id="eventnameColumn" text="Name" prefWidth="200"/>
                             <TableColumn fx:id="eventDateColumn" text="Date" prefWidth="150"/>
@@ -149,41 +155,46 @@
                 </center>
             </BorderPane>
         </Tab>
-
         <Tab text="Rooms" closable="false">
             <BorderPane style="-fx-background-color: #2d2d2d;">
                 <left>
-                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
-                        <Label text="Salle Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: #2d2d2d;">
+                        <Label text="Salle Information" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
                         <GridPane vgap="10" hgap="15">
-                            <Label text="Room ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="salleIdField" promptText="Enter Salle ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Room ID:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="salleIdField" promptText="Enter Salle ID" prefWidth="250"
+                                     style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                     GridPane.rowIndex="0" GridPane.columnIndex="1"/>
                             
-                            <Label text="Room Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="salleNameField" promptText="Enter Salle Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <Label text="Room Name:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="salleNameField" promptText="Enter Salle Name" prefWidth="250"
+                                     style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                     GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                             
-                            <Label text="Capacity:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="salleCapaciteField" promptText="Enter Salle Capacity" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            <Label text="Capacity:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="salleCapaciteField" promptText="Enter Salle Capacity" prefWidth="250"
+                                     style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                     GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                         </GridPane>
                         
                         <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
-                            <Button text="Add Salle" fx:id="addSalleButton" onAction="#handleAddSalle"
-                                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-min-width: 120;"/>
+                            <Button text="Add Salle" fx:id="addSalleButton" onAction="#handleAddSalle" style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-min-width: 120;"/>
                             <Button text="View All Salles" fx:id="viewSalleButton" onAction="#handleViewSalle"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
-                               <TextArea fx:id="SalleResultArea" 
-                    prefWidth="250" 
-                    prefHeight="100" 
-                    wrapText="true" 
-                    editable="false" 
-                    promptText="Operation results will appear here..."
-                    style="-fx-font-size: 12;"/>
+                        
+                        <TextArea fx:id="SalleResultArea" 
+                                 prefWidth="250" 
+                                 prefHeight="100" 
+                                 wrapText="true" 
+                                 editable="false" 
+                                 promptText="Operation results will appear here..."
+                                 style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080; -fx-font-size: 12;"/>
                     </VBox>
                 </left>
                 
                 <center>
-                    <TableView fx:id="salleTable" style="-fx-padding: 20;">
+                    <TableView fx:id="salleTable" style="-fx-background-color: #2d2d2d;">
                         <columns>
                             <TableColumn fx:id="sallenameColumn" text="Name" prefWidth="250"/>
                             <TableColumn fx:id="salleCapaciteColumn" text="Capacity" prefWidth="150"/>
@@ -192,22 +203,28 @@
                     </TableView>
                 </center>
             </BorderPane>
-        </Tab>
-
-        <Tab text="Terrains" closable="false">
+</Tab>
+        
+         <Tab text="Terrains" closable="false">
             <BorderPane style="-fx-background-color: #2d2d2d;">
                 <left>
-                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
-                        <Label text="Terrain Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: #2d2d2d;">
+                        <Label text="Terrain Information" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
                         <GridPane vgap="10" hgap="15">
-                            <Label text="Terrain ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="TerrainIdField" promptText="Enter Terrain ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Terrain ID:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="TerrainIdField" promptText="Enter Terrain ID" prefWidth="250"
+                                     style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                     GridPane.rowIndex="0" GridPane.columnIndex="1"/>
                             
-                            <Label text="Terrain Name:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                            <TextField fx:id="TerrainNameField" promptText="Enter Terrain Name" prefWidth="250" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <Label text="Terrain Name:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextField fx:id="TerrainNameField" promptText="Enter Terrain Name" prefWidth="250"
+                                     style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                     GridPane.rowIndex="1" GridPane.columnIndex="1"/>
                             
-                            <Label text="Type:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                            <TextField fx:id="TerrainTypeField" promptText="Enter Terrain Type" prefWidth="250" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                            <Label text="Type:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="TerrainTypeField" promptText="Enter Terrain Type" prefWidth="250"
+                                     style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                     GridPane.rowIndex="2" GridPane.columnIndex="1"/>
                         </GridPane>
                         
                         <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
@@ -216,18 +233,19 @@
                             <Button text="View All Terrains" fx:id="viewTerrainButton" onAction="#handleViewTerrain"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
-                               <TextArea fx:id="TerrainResultArea" 
-                    prefWidth="250" 
-                    prefHeight="100" 
-                    wrapText="true" 
-                    editable="false" 
-                    promptText="Operation results will appear here..."
-                    style="-fx-font-size: 12;"/>
+                        
+                        <TextArea fx:id="TerrainResultArea" 
+                                 prefWidth="250" 
+                                 prefHeight="100" 
+                                 wrapText="true" 
+                                 editable="false" 
+                                 promptText="Operation results will appear here..."
+                                 style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080; -fx-font-size: 12;"/>
                     </VBox>
                 </left>
                 
                 <center>
-                    <TableView fx:id="terrainTable" style="-fx-padding: 20;">
+                    <TableView fx:id="terrainTable" style="-fx-background-color: #2d2d2d;">
                         <columns>
                             <TableColumn fx:id="nameColumn" text="Name" prefWidth="250"/>
                             <TableColumn fx:id="typeColumn" text="Type" prefWidth="150"/>
@@ -238,49 +256,54 @@
             </BorderPane>
         </Tab>
 
+        <!-- Reservations Tab - Updated with dark theme -->
         <Tab text="Reservations" closable="false">
             <BorderPane style="-fx-background-color: #2d2d2d;">
                 <left>
-                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: white;">
-                        <Label text="Reservation Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                    <VBox spacing="15" style="-fx-padding: 20; -fx-background-color: #2d2d2d;">
+                        <Label text="Reservation Information" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
                         <GridPane vgap="10" hgap="15">
-                            <Label text="Reservation ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                            <TextField fx:id="ReservationIdField" promptText="Enter Reservation ID" prefWidth="250" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                  <Label text="User ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-<ComboBox fx:id="ReservationIdUserComboBox" 
-          prefWidth="250" 
-          promptText="Select User"
-          style="-fx-font-size: 12;"
-          GridPane.rowIndex="1" 
-          GridPane.columnIndex="1"/>
+                            <Label text="Reservation ID:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="ReservationIdField" promptText="Enter Reservation ID" prefWidth="250"
+                                     style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080;"
+                                     GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-<Label text="Room ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-<ComboBox fx:id="ReservationIdSalleComboBox" 
-          prefWidth="250" 
-          promptText="Select Salle"
-          style="-fx-font-size: 12;"
-          GridPane.rowIndex="2" 
-          GridPane.columnIndex="1"/>
+                            <Label text="User ID:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="ReservationIdUserComboBox" 
+                                    prefWidth="250" 
+                                    promptText="Select User"
+                                    style="-fx-background-color: #3d3d3d; -fx-text-fill: white;"
+                                    GridPane.rowIndex="1" 
+                                    GridPane.columnIndex="1"/>
 
-<Label text="Event ID:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-<ComboBox fx:id="ReservationIdEventComboBox" 
-          prefWidth="250" 
-          promptText="Select Event"
-          style="-fx-font-size: 12;"
-          GridPane.rowIndex="3" 
-          GridPane.columnIndex="1"/>
+                            <Label text="Room ID:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="ReservationIdSalleComboBox" 
+                                    prefWidth="250" 
+                                    promptText="Select Salle"
+                                    style="-fx-background-color: #3d3d3d; -fx-text-fill: white;"
+                                    GridPane.rowIndex="2" 
+                                    GridPane.columnIndex="1"/>
 
-<Label text="Terrain ID:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-<ComboBox fx:id="ReservationIdTerrainComboBox" 
-          prefWidth="250" 
-          promptText="Select Terrain"
-          style="-fx-font-size: 12;"
-          GridPane.rowIndex="4" 
-          GridPane.columnIndex="1"/>
+                            <Label text="Event ID:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="ReservationIdEventComboBox" 
+                                    prefWidth="250" 
+                                    promptText="Select Event"
+                                    style="-fx-background-color: #3d3d3d; -fx-text-fill: white;"
+                                    GridPane.rowIndex="3" 
+                                    GridPane.columnIndex="1"/>
+
+                            <Label text="Terrain ID:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <ComboBox fx:id="ReservationIdTerrainComboBox" 
+                                    prefWidth="250" 
+                                    promptText="Select Terrain"
+                                    style="-fx-background-color: #3d3d3d; -fx-text-fill: white;"
+                                    GridPane.rowIndex="4" 
+                                    GridPane.columnIndex="1"/>
                             
-                            <Label text="Date:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                            <DatePicker fx:id="ReservationDateField" promptText="Select Date" prefWidth="250" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-                            
+                            <Label text="Date:" style="-fx-text-fill: #e0e0e0;" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                            <DatePicker fx:id="ReservationDateField" promptText="Select Date" prefWidth="250"
+                                      style="-fx-background-color: #3d3d3d;"
+                                      GridPane.rowIndex="5" GridPane.columnIndex="1"/>
                         </GridPane>
                         
                         <HBox spacing="10" style="-fx-padding: 10 0 0 0;">
@@ -289,27 +312,28 @@
                             <Button text="View All Reservations" fx:id="viewReservationButton" onAction="#handleViewReservation"
                                     style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-min-width: 120;"/>
                         </HBox>
-                         <TextArea fx:id="ReservationResultArea" 
-                    prefWidth="250" 
-                    prefHeight="100" 
-                    wrapText="true" 
-                    editable="false" 
-                    promptText="Operation results will appear here..."
-                    style="-fx-font-size: 12;"/>
+
+                        <TextArea fx:id="ReservationResultArea" 
+                                 prefWidth="250" 
+                                 prefHeight="100" 
+                                 wrapText="true" 
+                                 editable="false" 
+                                 promptText="Operation results will appear here..."
+                                 style="-fx-background-color: #3d3d3d; -fx-text-fill: white; -fx-prompt-text-fill: #808080; -fx-font-size: 12;"/>
                         
-                        <!-- Improved Instructions Panel -->
+                        <!-- Instructions Panel - Updated with dark theme -->
                         <VBox fx:id="instructionsPanel" spacing="10" 
-                              style="-fx-background-color: #f8f9fa;
+                              style="-fx-background-color: #2d2d2d;
                                      -fx-padding: 15;
-                                     -fx-border-color: #e9ecef;
+                                     -fx-border-color: #3d3d3d;
                                      -fx-border-radius: 8;
-                                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+                                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
                                      -fx-margin-top: 15;">
                             
                             <Label text="Reservation Guidelines" 
                                    style="-fx-font-size: 14;
                                           -fx-font-weight: bold;
-                                          -fx-text-fill: #495057;"/>
+                                          -fx-text-fill: white;"/>
                             
                             <HBox spacing="10" alignment="CENTER_LEFT">
                                 <Region style="-fx-background-color: #28a745;
@@ -318,7 +342,7 @@
                                               -fx-background-radius: 6;"/>
                                 <Label text="Available Dates" 
                                        style="-fx-font-size: 12;
-                                              -fx-text-fill: #495057;"/>
+                                              -fx-text-fill: #e0e0e0;"/>
                             </HBox>
                             
                             <HBox spacing="10" alignment="CENTER_LEFT">
@@ -328,13 +352,13 @@
                                               -fx-background-radius: 6;"/>
                                 <Label text="Reserved Dates" 
                                        style="-fx-font-size: 12;
-                                              -fx-text-fill: #495057;"/>
+                                              -fx-text-fill: #e0e0e0;"/>
                             </HBox>
                             
                             <Label text="Please select from the available dates shown in the calendar. Reserved dates are marked in red and cannot be selected." 
                                    wrapText="true"
                                    style="-fx-font-size: 12;
-                                          -fx-text-fill: #6c757d;
+                                          -fx-text-fill: #e0e0e0;
                                           -fx-padding: 5 0 0 0;"/>
                         </VBox>
                     </VBox>
@@ -343,7 +367,7 @@
                 <VBox fx:id="Warning" spacing="15" minWidth="200"/>
                 
                 <center>
-                    <TableView fx:id="reservationTable" style="-fx-padding: 20;">
+                    <TableView fx:id="reservationTable" style="-fx-background-color: #2d2d2d;">
                         <columns>
                             <TableColumn fx:id="user_idColumn" text="User ID" prefWidth="120"/>
                             <TableColumn fx:id="event_idColumn" text="Event ID" prefWidth="120"/>
